@@ -7,4 +7,8 @@ public class EnigmMain extends JavaPlugin {
 	public void onEnable() {
 		System.out.println("hello King!");
 	}
+        @Override
+        public void onDisable() {
+                System.out.println("bye Wistaro!");
+        }
 }
