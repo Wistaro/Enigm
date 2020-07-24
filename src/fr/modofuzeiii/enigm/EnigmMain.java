@@ -5,7 +5,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class EnigmMain extends JavaPlugin {
 	@Override
 	public void onEnable() {
-		/*SALUT LES AMIS*/
 		System.out.println("hello King!");
 	}
         @Override
@@ -13,7 +12,7 @@ public class EnigmMain extends JavaPlugin {
                 System.out.println("HELLO LE MONDE");
 
                 System.out.println("bye Wistaro!");
-				System.out.println("ceci est un test");
+				System.out.println("ceci est un testss");
 
         }
 }
