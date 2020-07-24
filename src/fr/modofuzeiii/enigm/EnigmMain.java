@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class EnigmMain extends JavaPlugin {
 	@Override
 	public void onEnable() {
-		/*SALUT LES AMIS*/
+		/*SALUT LES AMISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS*/
 		System.out.println("hello King!");
 	}
         @Override
