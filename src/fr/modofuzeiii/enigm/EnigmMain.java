@@ -12,7 +12,7 @@ public class EnigmMain extends JavaPlugin {
                 System.out.println("HELLO LE MONDE");
 
                 System.out.println("bye Wistaro!");
-				System.out.println("wazzzaaaaaaaaaa!");
+				System.out.println("ceci est un test");
 
         }
 }
