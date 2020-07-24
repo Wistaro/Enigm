@@ -10,5 +10,6 @@ public class EnigmMain extends JavaPlugin {
         @Override
         public void onDisable() {
                 System.out.println("bye Wistaro!");
+				System.out.println("wazzzaaaaaaaaaa!");
         }
 }
