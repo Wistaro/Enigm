@@ -9,10 +9,16 @@ public class EnigmMain extends JavaPlugin {
 		System.out.println("*                 *");
 		System.out.println("*                 *");
 		System.out.println("*  Le plugin est  *");
-		System.out.println("*    En marche    *");
+		System.out.println("*    en marche    *");
 		System.out.println("*                 *");
 		System.out.println("*                 *");
 		System.out.println("*******************");
+		
+		/*Commandes*/
+		
+		getCommand("ehelp").setExecutor(new EnigmHelp());
+		getCommand("etest").setExecutor(new EnigmHelp());
+		
 	}
     @Override
     public void onDisable() {
@@ -20,7 +26,7 @@ public class EnigmMain extends JavaPlugin {
     	System.out.println("*                 *");
     	System.out.println("*                 *");
     	System.out.println("*  Le plugin est  *");
-    	System.out.println("*      Arrêté     *");
+    	System.out.println("*      arrete     *");
     	System.out.println("*                 *");
     	System.out.println("*                 *");
     	System.out.println("*******************");
