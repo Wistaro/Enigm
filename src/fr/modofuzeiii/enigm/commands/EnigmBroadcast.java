@@ -15,16 +15,14 @@ public class EnigmBroadcast implements CommandExecutor {
 		if(sender instanceof Player) {
 			Player p = (Player)sender;
 			
-			String message = "";
+			StringBuilder message = new StringBuilder();
 			
 			for(int i = 0; i< args.length; i++) {
-				message+=args[i];
+				message.append(args[i]);
 			}
 			
 			if(cmd.getName().equalsIgnoreCase("a")) {
-				if(args.length == 1) {
 					Bukkit.broadcastMessage(ChatColor.BOLD+""+ChatColor.RED+"[Enigm Info] "+message);
-				}
 			}
 			
 			
