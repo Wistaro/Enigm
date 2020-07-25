@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class EnigmHelp implements CommandExecutor {
-
-	@Override
+	
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
 		if(sender instanceof Player) {

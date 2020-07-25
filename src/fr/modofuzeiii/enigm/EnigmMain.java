@@ -13,6 +13,8 @@ public class EnigmMain extends JavaPlugin {
 		System.out.println("*                 *");
 		System.out.println("*                 *");
 		System.out.println("*******************");
+		System.out.println("*******************");
+		
 		
 		/*Commandes*/
 		

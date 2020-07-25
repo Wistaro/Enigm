@@ -3,12 +3,12 @@ main: fr.modofuzeiii.enigm.EnigmMain
 version: 2.0
 author: Wistaro & King
 commands:
-	ehelp:
-		description: Help players
-		permission: help.use
-	etest:
-		description: Test
-		permission: test.use
-	
+    ehelp:
+        description: Help players
+        permission: help.use
+    etest:
+        description: Test
+        permission: test.use
+
 
 
