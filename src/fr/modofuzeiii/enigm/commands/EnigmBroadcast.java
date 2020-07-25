@@ -19,6 +19,7 @@ public class EnigmBroadcast implements CommandExecutor {
 			
 			for(int i = 0; i< args.length; i++) {
 				message.append(args[i]);
+				message.append(" ");
 			}
 			
 			if(cmd.getName().equalsIgnoreCase("a")) {
