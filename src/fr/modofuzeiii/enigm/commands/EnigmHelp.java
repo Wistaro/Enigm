@@ -1,4 +1,4 @@
-package fr.modofuzeiii.enigm;
+package fr.modofuzeiii.enigm.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
