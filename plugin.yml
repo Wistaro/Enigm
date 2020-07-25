@@ -10,5 +10,14 @@ commands:
         description: Test
         permission: test.use
     a:
-        description: Message de broadcast par le plugin Enigm
-        permission: test.use
+        description: Broadcast Message
+        permission: a.use
+    estart:
+        description: Starting Game
+        permission: estart.use
+    estop:
+        description: Stopping Game
+        permission: estop.use
+    epause:
+        description: Pausing Game
+        permission: epause.use
