@@ -6,7 +6,7 @@ public class EnigmMain extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
-		/*SALUT LES AMISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS*/
+		/*SALUT ENFANT DE LA LUNE*/
 
 		System.out.println("hello King!");
 	}
