@@ -10,13 +10,12 @@ commands:
         description: Test
         permission: test.use
     a:
-<<<<<<< HEAD
         description: Message de broadcast par le plugin Enigm
         permission: test.use
     egm:
         description: Donne des items administrateurs au joueur
         permission: egm.use
-=======
+        
         description: Broadcast Message
         permission: a.use
     estart:
@@ -28,4 +27,3 @@ commands:
     epause:
         description: Pausing Game
         permission: epause.use
->>>>>>> b9ecebbaf041fc425a7cf89ccf392047a6cfeeb8

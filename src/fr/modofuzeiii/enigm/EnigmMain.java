@@ -24,18 +24,14 @@ public class EnigmMain extends JavaPlugin {
 		
 		getCommand("ehelp").setExecutor(new EnigmHelp());
 		getCommand("etest").setExecutor(new EnigmHelp());
-		getCommand("a").setExecutor(new EnigmBroadcast());
-<<<<<<< HEAD
+		getCommand("a").setExecutor(new EnigmBroadcast());	
 		getCommand("egm").setExecutor(new EnigmAdminCommands());
-		
-		/*events*/
-		getServer().getPluginManager().registerEvents(new EnigmAdminEvents(), this);
-		
-=======
 		getCommand("estart").setExecutor(new EnigmManager());
 		getCommand("estop").setExecutor(new EnigmManager());
 		getCommand("epause").setExecutor(new EnigmManager());
->>>>>>> b9ecebbaf041fc425a7cf89ccf392047a6cfeeb8
+		
+		/*events*/
+		getServer().getPluginManager().registerEvents(new EnigmAdminEvents(), this);
 	}
     @Override
     public void onDisable() {
