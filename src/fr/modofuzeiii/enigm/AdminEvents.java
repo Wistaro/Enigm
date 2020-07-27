@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 
-public class EnigmAdminEvents implements Listener {
+public class AdminEvents implements Listener {
 	
 	@EventHandler
 	public void OnItemClick(PlayerInteractEvent ev){

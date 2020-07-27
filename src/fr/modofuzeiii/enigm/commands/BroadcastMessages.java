@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class EnigmBroadcast implements CommandExecutor {
+public class BroadcastMessages implements CommandExecutor {
 	
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {

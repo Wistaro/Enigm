@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class EnigmAdminCommands implements CommandExecutor {
+public class AdminCommands implements CommandExecutor {
 	
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
