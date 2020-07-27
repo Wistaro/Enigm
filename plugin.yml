@@ -12,3 +12,6 @@ commands:
     a:
         description: Message de broadcast par le plugin Enigm
         permission: test.use
+    egm:
+        description: Donne des items administrateurs au joueur
+        permission: egm.use

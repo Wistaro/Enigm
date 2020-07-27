@@ -9,7 +9,6 @@ public class EnigmHelp implements CommandExecutor {
 	
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-		
 		if(sender instanceof Player) {
 			Player p = (Player)sender;
 			
