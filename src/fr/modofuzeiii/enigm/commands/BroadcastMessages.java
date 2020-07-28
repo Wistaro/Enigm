@@ -16,20 +16,24 @@ public class BroadcastMessages implements CommandExecutor {
 		if(sender instanceof Player) {
 			Player p = (Player)sender;
 			
-			StringBuilder message = new StringBuilder();
-			
-			for(int i = 0; i< args.length; i++) {
-				message.append(args[i]);
-				message.append(" ");
-			}
-			
 			if(cmd.getName().equalsIgnoreCase("a")) {
-			                    
+				if(args.length == 0){
+					p.sendMessage("§c[Erreur]" + ChatColor.RESET +" La commande est : /a <message>");
+				}
+				
+				if(args.length >= 1) {	 
+					
+					StringBuilder bc = new StringBuilder();
+					for(String part : args) {
+						bc.append(part +" ");
+					}
+					
+					Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + bc.toString());
+					
+				}              
 			      for(Player p_online : Bukkit.getOnlinePlayers()) {
-			            p_online.playSound(p_online.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1F, 1F);			            			                         
-			      }
-			      
-			      Bukkit.broadcastMessage(ChatColor.BOLD+""+ChatColor.YELLOW+ "[" + ChatColor.AQUA + "Enigm" + ChatColor.YELLOW + "] " + ChatColor.RESET +message);      
+			            p_online.playSound(p_online.getLocation(), Sound.BLOCK_ANVIL_PLACE, 0.5F, 2F);			            			                         
+			      } 
 			
 			
 			}

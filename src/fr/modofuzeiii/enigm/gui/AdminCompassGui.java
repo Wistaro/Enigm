@@ -1,11 +1,7 @@
 package fr.modofuzeiii.enigm.gui;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -15,14 +11,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class AdminCompassGui implements Listener {
 	
 	private Inventory gui;
-	private int numbersOfPlayers;
+	int numbersOfPlayers;
 
     public AdminCompassGui(Player p) {
     	
     	 //Initialisation
     	
     	numbersOfPlayers = Bukkit.getOnlinePlayers().size();
-    	gui =  Bukkit.getServer().createInventory(p, 9, "Se téléporter à un joueur");
+    	gui =  Bukkit.getServer().createInventory(p, 9, "§3§lSe TP a un joueur");
     	 
     	 
     	 //Build the interface
@@ -35,7 +31,7 @@ public class AdminCompassGui implements Listener {
 	}
     
     private void FillWithConnectedPlayer() {
-    		//remplie l'inventaire avec les joueurs connectés pour pouvoir s'y to en cliquant
+    		//remplie l'inventaire avec les joueurs connectés pour pouvoir s'y tp en cliquant
     	 ItemStack survival = new ItemStack (Material.PLAYER_HEAD);
          ItemMeta survivalMeta = survival.getItemMeta();
         

@@ -16,7 +16,7 @@ public class HelpEnigmPlugin implements CommandExecutor {
 			
 			if(cmd.getName().equalsIgnoreCase("ehelp")) {
 				if(args.length == 0) {
-					p.sendMessage("§6------------------------------------------");
+					p.sendMessage("§6---------------------------------");
 					p.sendMessage("");
 					p.sendMessage("§e§l            §7(§e1§7/§e2§7) §e§lEnigm");
 					p.sendMessage("");
@@ -24,7 +24,7 @@ public class HelpEnigmPlugin implements CommandExecutor {
 					p.sendMessage("§e/a <message> §7Envoyer une annonce à tout le monde.");
 					p.sendMessage("§e/estart §7Démarrer la partie.");
 			        p.sendMessage("");
-			        p.sendMessage("§6------------------------------------------");
+			        p.sendMessage("§6---------------------------------");
 			        System.out.println("Le ehelp fonctionne correctement !");
 				}
 			}
