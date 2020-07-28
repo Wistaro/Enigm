@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class EnigmBroadcast implements CommandExecutor {
+public class BroadcastMessages implements CommandExecutor {
 	
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
@@ -24,16 +24,19 @@ public class EnigmBroadcast implements CommandExecutor {
 			}
 			
 			if(cmd.getName().equalsIgnoreCase("a")) {
-			      Bukkit.broadcastMessage(ChatColor.BOLD+""+ChatColor.YELLOW+ "[" + ChatColor.AQUA + "Enigm" + ChatColor.YELLOW + "] " + ChatColor.RESET +message);
+			                    
 			      for(Player p_online : Bukkit.getOnlinePlayers()) {
-			            p_online.playSound(p_online.getLocation(), Sound.BLOCK_ANVIL_PLACE, 10F, 2F);
-			      }                    
+			            p_online.playSound(p_online.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1F, 1F);			            			                         
+			      }
+			      
+			      Bukkit.broadcastMessage(ChatColor.BOLD+""+ChatColor.YELLOW+ "[" + ChatColor.AQUA + "Enigm" + ChatColor.YELLOW + "] " + ChatColor.RESET +message);      
+			
+			
 			}
-			
-			
+		
 		}
 		
 		return false;
-	}
 
+	}
 }

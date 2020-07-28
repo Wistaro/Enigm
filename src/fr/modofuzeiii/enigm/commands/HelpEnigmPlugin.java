@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class EnigmHelp implements CommandExecutor {
+public class HelpEnigmPlugin implements CommandExecutor {
 	
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
