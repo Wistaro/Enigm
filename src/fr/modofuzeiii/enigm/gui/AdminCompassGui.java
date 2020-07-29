@@ -6,20 +6,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public class AdminCompassGui implements Listener {
 	
-	private Inventory gui;
+	public Inventory gui;
 	int numbersOfPlayers;
+	Player currentPlayer;
 
     public AdminCompassGui(Player p) {
     	
     	 //Initialisation
     	
     	numbersOfPlayers = Bukkit.getOnlinePlayers().size();
-    	gui =  Bukkit.getServer().createInventory(p, 9, "§3§lSe TP a un joueur");
-    	 
+    	gui =  Bukkit.getServer().createInventory(p, 18, "§3§lSe TP a un joueur");
+    	currentPlayer = p;
     	 
     	 //Build the interface
     	 FillWithConnectedPlayer();
@@ -31,29 +32,27 @@ public class AdminCompassGui implements Listener {
 	}
     
     private void FillWithConnectedPlayer() {
-    		//remplie l'inventaire avec les joueurs connectés pour pouvoir s'y tp en cliquant
-    	 ItemStack survival = new ItemStack (Material.PLAYER_HEAD);
-         ItemMeta survivalMeta = survival.getItemMeta();
+    	
+    	ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+    	SkullMeta meta = (SkullMeta) skull.getItemMeta();
+    	String playerName;
         
-        
-         survival.setItemMeta(survivalMeta);
-        
-         //This is where you decide what slot the item goes into
-         gui.setItem(0, survival);
-         gui.setItem(1, survival);
-         gui.setItem(2, survival);
-         gui.setItem(3, survival);
-         gui.setItem(4, survival);
-         gui.setItem(5, survival);
-         gui.setItem(6, survival);
-         gui.setItem(6, survival);
-         gui.setItem(7, survival);
-         gui.setItem(8, survival);
+         int i = 0;
+         
+         for (Player player : Bukkit.getOnlinePlayers()) {
+        	 
+        	 playerName = player.getName();
+        	 
+        	 meta.setOwner(playerName);
+         	 meta.setDisplayName(playerName);
+        	 skull.setItemMeta(meta);
+        	 gui.setItem(i, skull);
+        	 
+        	 i++;
+         }  
+         
+         
      }
-    	
-    	
-    
-
-    
+       
 
 }

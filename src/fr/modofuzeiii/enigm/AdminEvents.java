@@ -6,6 +6,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import fr.modofuzeiii.enigm.gui.AdminCompassGui;
@@ -28,27 +30,6 @@ public class AdminEvents implements Listener {
 			
 			AdminCompassGui guiCompass = new AdminCompassGui(p); //open the compass GUI
 			
-			 
-			
-			 /* Inventory help = Bukkit.getServer().createInventory(p, 9, "Help");
-			  
-			  ItemStack ref1 = new ItemStack(Material.BOOK);
-              ItemMeta metaref1 = ref1.getItemMeta();
-              ArrayList<String> lore= new ArrayList<String>();
-
-              lore.add(" ");
-              lore.add("§for visit our site");
-              lore.add(" ");
-              lore.add("§atest.net/help");
-              
-              metaref1.setLore(lore);
-              metaref1.setDisplayName("§6§lClick to get help");
-      
-
-              ref1.setItemMeta(metaref1);
-  
-          //Here opens the inventory
-          p.openInventory(help);*/
 		}
 		if (clickItem.getType() == Material.GREEN_WOOL && clickItem.hasItemMeta() && clickItem.getItemMeta().hasDisplayName() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase("§aCreative Mode")) {
 			p.setGameMode(GameMode.CREATIVE);
@@ -61,5 +42,21 @@ public class AdminEvents implements Listener {
 		}
 		
 	}
+	
+	//Evite de pouvoir prendre les trucs dans l'inventaire
+	@EventHandler
+    public void onInventoryClick(final InventoryDragEvent e) {
+        
+		/*if (e.getInventory() != guiCompass.gui ) {
+          e.setCancelled(true);
+        }*/
+    }
+	
+	//gère lees clics sur les tete 
+	 @EventHandler
+	  public void clickMenu(InventoryClickEvent event){
+	        
+	 }
+	     
 
 }
