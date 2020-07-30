@@ -69,7 +69,7 @@ public class AdminEvents implements Listener {
 				
 				Location posPlayer = player2teleport.getLocation();
 				
-				p.teleport(posPlayer);
+				p.teleport(posPlayer); //yolo
 				
 				
 				
