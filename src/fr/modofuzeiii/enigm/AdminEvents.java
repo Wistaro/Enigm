@@ -1,6 +1,8 @@
 package fr.modofuzeiii.enigm;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -47,16 +49,35 @@ public class AdminEvents implements Listener {
 	@EventHandler
     public void onInventoryClick(final InventoryDragEvent e) {
         
-		/*if (e.getInventory() != guiCompass.gui ) {
-          e.setCancelled(true);
-        }*/
-    }
-	
+	if(e.getView() != null) {	
+			if(e.getView().getTitle().equalsIgnoreCase("§3§lSe TP a un joueur")) {
+				e.setCancelled(true);
+			}
+    	}
+	}
 	//gère lees clics sur les tete 
 	 @EventHandler
-	  public void clickMenu(InventoryClickEvent event){
-	        
+	  public void onclickMenuCompass(InventoryClickEvent e){
+		 
+		 Player p = (Player)e.getWhoClicked();
+		 
+		 if(e.getCurrentItem() != null) {		 
+			 if(e.getView().getTitle().equalsIgnoreCase("§3§lSe TP a un joueur")) {
+				 
+				String psdPlayer = e.getCurrentItem().getItemMeta().getDisplayName();
+				Player player2teleport = Bukkit.getPlayer(psdPlayer);
+				
+				Location posPlayer = player2teleport.getLocation();
+				
+				p.teleport(posPlayer);
+				
+				
+				
+			}
+		 }
+		 
 	 }
+		 
 	     
 
 }
