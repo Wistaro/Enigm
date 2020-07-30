@@ -31,6 +31,8 @@ public class AdminMalusBonusGui implements Listener {
     	malus.setItemMeta(malusM);
     	bonus.setItemMeta(bonusM);
     	
+    	/* Open Inv
+    	 * */
     	p.openInventory(gui);
     	p.openInventory(gui).setItem(15, malus);
     	p.openInventory(gui).setItem(11, bonus);

@@ -12,9 +12,13 @@ public class AdminMalusGui implements Listener {
 	public Inventory guimalus;
 
 	public AdminMalusGui(Player p) {
-
+		
+		/* GUI Setup
+		 * */
     	guimalus = Bukkit.getServer().createInventory(p, 9, "§c§l§oMALUS");
     	
+    	/* Create All Items
+    	 * */
     	ItemStack retour1 = new ItemStack(Material.BARRIER);
     	ItemStack slow = new ItemStack(Material.ANVIL);
     	ItemStack freeze = new ItemStack(Material.PACKED_ICE);
@@ -25,7 +29,9 @@ public class AdminMalusGui implements Listener {
     	ItemMeta freezeM = freeze.getItemMeta();
     	ItemMeta blindM = blind.getItemMeta();
     	ItemMeta vomisM = vomis.getItemMeta();
-
+    	
+    	/* Setup All Items
+    	 * */
     	retour1M.setDisplayName("§cRetour");
     	slowM.setDisplayName("§7Slowness");
     	freezeM.setDisplayName("§bFreeze");
@@ -37,6 +43,8 @@ public class AdminMalusGui implements Listener {
     	blind.setItemMeta(blindM);
     	vomis.setItemMeta(vomisM);
     	
+    	/* Open Inv
+    	 * */
     	p.openInventory(guimalus);
 		p.openInventory(guimalus).setItem(0, slow);
 		p.openInventory(guimalus).setItem(1, blind);
