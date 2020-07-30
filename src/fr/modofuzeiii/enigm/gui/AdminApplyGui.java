@@ -8,33 +8,32 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-public class AdminCompassGui implements Listener {
+public class AdminApplyGui implements Listener {
 	
-	public Inventory gui;
+	public Inventory guiapply;
 	int numbersOfPlayers;
 	Player currentPlayer;
-
-    public AdminCompassGui(Player p) {
+	
+	public AdminApplyGui(Player p) {
     	
-    	 //Initialisation
+    	//Initialisation
     	
     	numbersOfPlayers = Bukkit.getOnlinePlayers().size();
-    	gui =  Bukkit.getServer().createInventory(p, 18, "§3§lSe TP a un joueur");
+    	guiapply = Bukkit.getServer().createInventory(p, 18, "§3§lAppliquer l'effet à :");
     	currentPlayer = p;
     	 
     	 //Build the interface
     	 FillWithConnectedPlayer();
     	 
     	 //Open the interface
-         p.openInventory(gui);
-         
+         p.openInventory(guiapply);
          
 	}
-    
-    @SuppressWarnings("deprecation")
+
+	@SuppressWarnings("deprecation")
 	private void FillWithConnectedPlayer() {
-    	
-    	ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+		
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
     	SkullMeta meta = (SkullMeta) skull.getItemMeta();
     	String playerName;
         
@@ -47,13 +46,9 @@ public class AdminCompassGui implements Listener {
         	 meta.setOwner(playerName);
          	 meta.setDisplayName(playerName);
         	 skull.setItemMeta(meta);
-        	 gui.setItem(i, skull);
+        	 guiapply.setItem(i, skull);
         	 
         	 i++;
          }  
-         
-         
-     }
-       
-
+	}
 }

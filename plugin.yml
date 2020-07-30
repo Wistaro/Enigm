@@ -10,13 +10,10 @@ commands:
     etest:
         description: Test
         permission: test.use
-    a:
-        description: Message de broadcast par le plugin Enigm
-        permission: test.use
     egm:
-        description: Donne des items administrateurs au joueur
+        description: Admin Tools
         permission: egm.use
-        
+    a:    
         description: Broadcast Message
         permission: a.use
     estart:

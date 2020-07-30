@@ -32,7 +32,7 @@ public class BroadcastMessages implements CommandExecutor {
 					
 				}              
 			      for(Player p_online : Bukkit.getOnlinePlayers()) {
-			            p_online.playSound(p_online.getLocation(), Sound.BLOCK_ANVIL_PLACE, 0.5F, 2F);			            			                         
+			            p_online.playSound(p_online.getLocation(), Sound.BLOCK_ANVIL_BREAK, 0.5F, 2F);			            			                         
 			      } 
 			
 			
