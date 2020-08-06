@@ -10,13 +10,19 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class joinLeaveEvents implements Listener {
 	
+	private EnigmMain enigmMain;
+	
+	public joinLeaveEvents(EnigmMain mainInstance) {
+		enigmMain = mainInstance;
+	}
+	
 	@EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Le joueur " + p.getName() + " vient de se connecter!" );
         
-        ScoreBoardHandler ScoreBoardHandler = new ScoreBoardHandler(p);
+        ScoreBoardHandler ScoreBoardHandler = new ScoreBoardHandler(p, enigmMain);
         ScoreBoardHandler.setupSb();
         
         
