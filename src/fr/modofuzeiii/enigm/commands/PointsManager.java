@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 
 import fr.modofuzeiii.enigm.EnigmMain;
 import fr.modofuzeiii.enigm.ScoreBoardHandler;
+import fr.modofuzeiii.enigm.TitleAPI;
 import fr.modofuzeiii.enigm.database.DBConnection;
 
 public class PointsManager implements CommandExecutor {

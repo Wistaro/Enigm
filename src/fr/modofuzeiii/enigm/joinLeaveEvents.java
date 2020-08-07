@@ -27,6 +27,13 @@ public class joinLeaveEvents implements Listener {
         
         currentSbHandler.updateSb(p);
         
+        TitleAPI.sendTitle(p, 10, 20, 10, "§cHey, "+p.getDisplayName()+"!", "Bienvenue sur Enigm!");
+        
+        if(p.isOp()) {
+        	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
+        }
+        
+        
         
     }
 	

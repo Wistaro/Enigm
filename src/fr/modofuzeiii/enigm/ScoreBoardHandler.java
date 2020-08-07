@@ -69,7 +69,7 @@ public class ScoreBoardHandler implements Listener {
 	        String timer = "§200h00m00s";
 	        String emptyStr = "     ";
 	        
-	        String spacer = "§c§m-------------------";
+	        String spacer = "§6§m-------------------";
 	
 	        
 	        o.setDisplayName("§lEnigm v0.1");

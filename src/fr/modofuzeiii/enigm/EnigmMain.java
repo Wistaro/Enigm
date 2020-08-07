@@ -61,6 +61,8 @@ public class EnigmMain extends JavaPlugin {
 		
 		databaseManager = new DatabaseManager();
 		
+		/*Debug */
+		
 		
         
   
