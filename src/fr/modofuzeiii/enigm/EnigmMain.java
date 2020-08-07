@@ -6,11 +6,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
 
 import fr.modofuzeiii.enigm.commands.AdminCommands;
 import fr.modofuzeiii.enigm.commands.BroadcastMessages;
 import fr.modofuzeiii.enigm.commands.HelpEnigmPlugin;
+import fr.modofuzeiii.enigm.commands.PointsManager;
 import fr.modofuzeiii.enigm.database.DatabaseManager;
 import fr.modofuzeiii.enigm.game.GameManager;
 
@@ -18,6 +21,8 @@ public class EnigmMain extends JavaPlugin {
 	
 	/*Database info*/
 	private DatabaseManager databaseManager;
+	
+	public  ScoreBoardHandler sbHandler;
     
     
 	
@@ -32,6 +37,10 @@ public class EnigmMain extends JavaPlugin {
 		System.out.println("*                 *");
 		System.out.println("*******************");
 		
+		/*Scoreboard!*/
+		
+		sbHandler = new ScoreBoardHandler(this);
+		
 		
 		/*Commandes*/
 		
@@ -42,6 +51,7 @@ public class EnigmMain extends JavaPlugin {
 		getCommand("estart").setExecutor(new GameManager());
 		getCommand("estop").setExecutor(new GameManager());
 		getCommand("epause").setExecutor(new GameManager());
+		getCommand("pts").setExecutor(new PointsManager(this));
 		
 		/*events*/
 		getServer().getPluginManager().registerEvents(new AdminEvents(), this);
@@ -51,13 +61,7 @@ public class EnigmMain extends JavaPlugin {
 		
 		databaseManager = new DatabaseManager();
 		
-		/*Databse settings
 		
-		host = "db4free.net";
-        port = 3306;
-        database = "enigm_bdd";
-        username = "fiouze";
-        password = "recrutements";  */
         
   
 		

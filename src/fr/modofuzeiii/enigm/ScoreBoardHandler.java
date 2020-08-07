@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.function.Consumer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -19,8 +17,9 @@ import fr.modofuzeiii.enigm.database.DBConnection;
 
 public class ScoreBoardHandler implements Listener {
 	
-	private  Scoreboard sb;
-	private Player p;
+	private  Scoreboard currentSb;
+	private Player currentPlayer;
+	private Objective o;
 	
 	private int pointsRouge;
 	private int pointsVert;
@@ -29,11 +28,12 @@ public class ScoreBoardHandler implements Listener {
 	
 	private EnigmMain enigmMain;
 	
-	public ScoreBoardHandler(Player pl, EnigmMain mainInstance) {
-		sb = Bukkit.getScoreboardManager().getNewScoreboard();
-		p = pl;
+	public String[] teams;
+	
+	public ScoreBoardHandler(EnigmMain mainInstance) {
 		
 		enigmMain = mainInstance;
+		teams = new String[] { "rouge", "vert", "bleu", "jaune" };
 		
 		pointsRouge = -2;
 		pointsVert = -2;
@@ -42,70 +42,84 @@ public class ScoreBoardHandler implements Listener {
 		
 	}
 	
-	public void setupSb() {
+	@SuppressWarnings("deprecation")
+	public void updateSb(Player p) {
 		
-		this.getTeamPoints("jaune"); //update local attribute
+		currentPlayer = p;
 		
-		System.out.println("La team jaune a "+this.pointsJaune+" points");
+		currentSb = Bukkit.getScoreboardManager().getNewScoreboard();
+		o = currentSb.registerNewObjective("Enigm", "Titouan?");
 		
-        sb = Bukkit.getScoreboardManager().getNewScoreboard();
+		currentSb.clearSlot(DisplaySlot.SIDEBAR);
 
-        String statsBleu = "§9Bleue §r20pts";
-        String statsRouge = "§cRouge §r20pts";
-        String statsVert = "§2Vert §r20pts";
-        String statsJaune = "§eJaune §r20pts";
-        String timer = "§200h00m00s";
-        String emptyStr = "     ";
-        
-        String spacer = "§7§m-------------------";
-
-        Objective o = sb.registerNewObjective("title", "dummy");
-        o.setDisplayName("Enigm v0.1");
-        o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        
-        Score top = o.getScore(spacer);
-        top.setScore(13);
-        
-        Score rien1 = o.getScore(emptyStr);
-        rien1.setScore(12);
-        
-        Score bleu = o.getScore(statsBleu);
-        bleu.setScore(11);
-
-        Score rouge = o.getScore(statsRouge);
-        rouge.setScore(10);
-        
-        Score vert = o.getScore(statsVert);
-        vert.setScore(9);
-     
-        Score jaune = o.getScore(statsJaune);
-        jaune.setScore(8);
-        
-        
-        Score rien2 = o.getScore(emptyStr);
-        rien2.setScore(7);
-        
-        Score bottom = o.getScore(spacer);
-        bottom.setScore(6);
-        
-        Score infoTimer = o.getScore(timer);
-        infoTimer.setScore(5);
-
-        
-        p.setScoreboard(sb);
+		Bukkit.getScheduler().runTaskAsynchronously(enigmMain, (Runnable) () -> {	
+			
+			System.out.println("Updating scoreboard!");
+		
+			this.pointsBleu = getTeamPoints("bleu"); 
+			this.pointsJaune = getTeamPoints("jaune");
+			this.pointsVert = getTeamPoints("vert");
+			this.pointsRouge = getTeamPoints("rouge");
+	
+	
+	        String statsBleu = "§9Bleue §r"+this.pointsBleu+"pts";
+	        String statsRouge = "§cRouge §r"+this.pointsRouge+"pts";
+	        String statsVert = "§2Vert §r"+this.pointsVert+"pts";
+	        String statsJaune = "§eJaune §r"+this.pointsJaune+"pts";
+	        String timer = "§200h00m00s";
+	        String emptyStr = "     ";
+	        
+	        String spacer = "§c§m-------------------";
+	
+	        
+	        o.setDisplayName("§lEnigm v0.1");
+	        o.setDisplaySlot(DisplaySlot.SIDEBAR);
+	        
+	        
+			
+			o.getScore("").setScore(7);
+			o.getScore("     §oBy Wistaro & KingL").setScore(9);
+			o.getScore(spacer).setScore(7);
+		
+	        o.getScore(spacer).setScore(10);
+	        
+	        o.getScore(spacer).setScore(9);
+	        
+	        o.getScore(emptyStr).setScore(8);
+	        
+	        o.getScore(statsBleu).setScore(7);
+	        
+	        o.getScore(statsRouge).setScore(6);
+	        
+	        o.getScore(statsVert).setScore(5);
+	        
+	        o.getScore(statsJaune).setScore(4);
+	        
+	        o.getScore(emptyStr).setScore(3);
+	        
+	        o.getScore(spacer).setScore(2);
+	        
+	        o.getScore(timer).setScore(1);
+	        
+	        currentPlayer.setScoreboard(currentSb);
+		});
 	}
 	
     public Scoreboard getScoreboard() {
-        return this.sb;
+        return this.currentSb;
+    }
+    
+    public void updateScoreboard4All() {
+    	
+    	for(Player p_online : Bukkit.getOnlinePlayers()) {
+				this.updateSb(p_online);
+	      } 
     }
     
     private int getTeamPoints(String team) {
     	
     	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
-    	
-    	Bukkit.getScheduler().runTaskAsynchronously(enigmMain, (Runnable) () -> {
-    		   	
-        	
+    		   		
         	try {
         		
     			final Connection connection = enigmEventConnection.getConnection();
@@ -118,24 +132,19 @@ public class ScoreBoardHandler implements Listener {
     			
     			if(result.next()) {
     				
-    				this.pointsJaune =  result.getInt("points");
-    				
-            		System.out.println("points = "+result.getInt("points"));
-            		System.out.println("points = "+this.pointsJaune);
+    				return result.getInt("points");
     			
     			}else {
-    				this.pointsJaune = -1;
+    				return -1;
     			}
     			
     		} catch (SQLException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-        	
-    	});
     	
  
-		return 0;
+		return -1;
     }
 
 }

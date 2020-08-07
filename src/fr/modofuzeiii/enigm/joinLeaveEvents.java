@@ -7,13 +7,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class joinLeaveEvents implements Listener {
 	
 	private EnigmMain enigmMain;
+	private ScoreBoardHandler currentSbHandler;
 	
 	public joinLeaveEvents(EnigmMain mainInstance) {
 		enigmMain = mainInstance;
+		currentSbHandler = enigmMain.sbHandler;
 	}
 	
 	@EventHandler
@@ -22,15 +25,13 @@ public class joinLeaveEvents implements Listener {
         
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Le joueur " + p.getName() + " vient de se connecter!" );
         
-        ScoreBoardHandler ScoreBoardHandler = new ScoreBoardHandler(p, enigmMain);
-        ScoreBoardHandler.setupSb();
-        
+        currentSbHandler.updateSb(p);
         
         
     }
 	
 	@EventHandler
-    public void onJoin(PlayerQuitEvent e) {
+    public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Le joueur " + p.getName() + " vient de se déconnecter!" );
