@@ -14,6 +14,7 @@ import fr.modofuzeiii.enigm.commands.AdminCommands;
 import fr.modofuzeiii.enigm.commands.BroadcastMessages;
 import fr.modofuzeiii.enigm.commands.HelpEnigmPlugin;
 import fr.modofuzeiii.enigm.commands.PointsManager;
+import fr.modofuzeiii.enigm.commands.TeamManager;
 import fr.modofuzeiii.enigm.database.DatabaseManager;
 import fr.modofuzeiii.enigm.game.GameManager;
 
@@ -23,11 +24,15 @@ public class EnigmMain extends JavaPlugin {
 	private DatabaseManager databaseManager;
 	
 	public  ScoreBoardHandler sbHandler;
+	public TeamManager teamHandler;
     
     
 	
 	@Override
 	public void onEnable() {
+		
+		//saveDefaultConfig();
+		
 		System.out.println("*******************");
 		System.out.println("*                 *");
 		System.out.println("*                 *");
@@ -40,6 +45,7 @@ public class EnigmMain extends JavaPlugin {
 		/*Scoreboard!*/
 		
 		sbHandler = new ScoreBoardHandler(this);
+		teamHandler = new TeamManager(this);
 		
 		
 		/*Commandes*/
@@ -52,6 +58,7 @@ public class EnigmMain extends JavaPlugin {
 		getCommand("estop").setExecutor(new GameManager());
 		getCommand("epause").setExecutor(new GameManager());
 		getCommand("pts").setExecutor(new PointsManager(this));
+		getCommand("teams").setExecutor(teamHandler);
 		
 		/*events*/
 		getServer().getPluginManager().registerEvents(new AdminEvents(), this);
@@ -62,6 +69,8 @@ public class EnigmMain extends JavaPlugin {
 		databaseManager = new DatabaseManager();
 		
 		/*Debug */
+		
+		//String code1 = this.getConfig().getString("gameData.codes.code1");
 		
 		
         

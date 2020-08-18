@@ -54,10 +54,6 @@ public class PointsManager implements CommandExecutor {
 					}
 					
 					
-					
-
-					
-					
 				}else if(args[0].equalsIgnoreCase("reload")) {
 					
 					currentSbHandler.updateScoreboard4All();
@@ -73,9 +69,8 @@ public class PointsManager implements CommandExecutor {
 		
     	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
     	
-    	//Bukkit.getScheduler().runTaskAsynchronously(enigmMain, (Runnable) () -> {
-    		   	
-        	
+    	Bukkit.getScheduler().runTaskAsynchronously(enigmMain, (Runnable) () -> {
+    		   	    	
         	try {
         		
     			final Connection connection = enigmEventConnection.getConnection();
@@ -94,6 +89,8 @@ public class PointsManager implements CommandExecutor {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
+        	
+	});
 	}
 
 }

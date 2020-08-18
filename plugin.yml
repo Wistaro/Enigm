@@ -28,3 +28,6 @@ commands:
     pts:
         description: Manage enigm team points
         permission: pts.use
+    teams:
+        description: Manage enigm teams
+        permission: teams.use
