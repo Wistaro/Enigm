@@ -26,11 +26,30 @@ public class EnigmMain extends JavaPlugin {
 	
 	public  ScoreBoardHandler sbHandler;
 	public TeamManager teamHandler;
+	public PointsManager pointsHandler;
+	public GameManager gameHandler;
+	
+	/*GameData*/
     
-    
+	  public  int isGameStarted; //indicate if the game is started
+	  public int currentChronoAtStartup; //0: not started, 1: counting, 2 : ended
+	  public  int redStateChallenge; //store the last finished challenge for each team
+	  public  int greenStateChallenge;
+	  public  int yellowStateChallenge;
+	  public  int blueStateChallenge;
 	
 	@Override
 	public void onEnable() {
+		
+		// Game initialization
+		  isGameStarted = 0;
+		  currentChronoAtStartup = 0;
+		  
+		  redStateChallenge = 0;
+		  greenStateChallenge = 0;
+		  yellowStateChallenge = 0;
+		  blueStateChallenge = 0;
+		
 		
 		//saveDefaultConfig();
 		
@@ -47,6 +66,8 @@ public class EnigmMain extends JavaPlugin {
 		
 		sbHandler = new ScoreBoardHandler(this);
 		teamHandler = new TeamManager(this);
+		pointsHandler = new PointsManager(this);
+		gameHandler = new GameManager(this, pointsHandler);
 		
 		
 		/*Commandes*/
@@ -55,9 +76,9 @@ public class EnigmMain extends JavaPlugin {
 		getCommand("etest").setExecutor(new HelpEnigmPlugin());
 		getCommand("a").setExecutor(new BroadcastMessages());	
 		getCommand("egm").setExecutor(new AdminCommands());
-		getCommand("estart").setExecutor(new GameManager());
-		getCommand("estop").setExecutor(new GameManager());
-		getCommand("epause").setExecutor(new GameManager());
+		getCommand("estart").setExecutor(gameHandler);
+		getCommand("estop").setExecutor(gameHandler);
+		getCommand("epause").setExecutor(gameHandler);
 		getCommand("pts").setExecutor(new PointsManager(this));
 		getCommand("teams").setExecutor(teamHandler);
 		

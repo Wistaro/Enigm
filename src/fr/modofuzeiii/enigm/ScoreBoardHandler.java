@@ -42,54 +42,6 @@ public class ScoreBoardHandler implements Listener {
 		pointsBleu = -2;
 		
 	}
-	
-	@SuppressWarnings("deprecation")
-	public void setupSb() {
-		
-        currentSb = Bukkit.getScoreboardManager().getNewScoreboard();
-        
-        String statsBleu = "§9Bleue §r20pts";
-        String statsRouge = "§cRouge §r20pts";
-        String statsVert = "§2Vert §r20pts";
-        String statsJaune = "§eJaune §r20pts";
-        String timer = "§200h00m00s";
-        String emptyStr = "     ";
-        String emptyStr2 = "     ";
-        String spacer = "§6---------";
-        String bigspacer = "§6---------";
-
-        Objective o = currentSb.registerNewObjective("title", "dummy");
-        o.setDisplayName("§lEnigm v2.0");
-        o.setDisplaySlot(DisplaySlot.SIDEBAR);
-                
-        Score seperate = o.getScore(bigspacer);
-        seperate.setScore(9);
-        
-        Score rien1 = o.getScore(emptyStr2);
-        rien1.setScore(8);
-        
-        Score bleu = o.getScore(statsBleu);
-        bleu.setScore(7);
-
-        Score rouge = o.getScore(statsRouge);
-        rouge.setScore(6);
-        
-        Score vert = o.getScore(statsVert);
-        vert.setScore(5);
-     
-        Score jaune = o.getScore(statsJaune);
-        jaune.setScore(4);
-        
-        
-        Score rien2 = o.getScore(emptyStr);
-        rien2.setScore(3);
-        
-        Score bottom = o.getScore(spacer);
-        bottom.setScore(2);
-        
-        Score infoTimer = o.getScore(timer);
-        infoTimer.setScore(1);
-	}
         
 	@SuppressWarnings("deprecation")
 	public void updateSb(Player p) {
@@ -100,6 +52,11 @@ public class ScoreBoardHandler implements Listener {
 		o = currentSb.registerNewObjective("Enigm", "Titouan?");
 		
 		currentSb.clearSlot(DisplaySlot.SIDEBAR);
+		
+        String spacer = "§6----------";
+        String espace = "§6----------";
+		
+		if(enigmMain.isGameStarted == 1) {
 
 		Bukkit.getScheduler().runTaskAsynchronously(enigmMain, (Runnable) () -> {	
 			
@@ -117,9 +74,7 @@ public class ScoreBoardHandler implements Listener {
 	        String statsJaune = "§eJaune §r"+this.pointsJaune+"pts";
 	        String timer = "§a00h00m00s";
 	        String emptyStr = "     ";
-	        
-	        String spacer = "§6----------";
-	        String espace = "§6----------";
+	       
 	        
 	        o.setDisplayName("§lEnigm v0.1");
 	        o.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -142,8 +97,24 @@ public class ScoreBoardHandler implements Listener {
 	        
 	        o.getScore(timer).setScore(1);
 	        
-	        currentPlayer.setScoreboard(currentSb);
 		});
+		
+		}else {
+			
+			o.setDisplayName("§lEnigm v0.1");
+	        o.setDisplaySlot(DisplaySlot.SIDEBAR);
+	        
+	        o.getScore(espace + " ").setScore(9);
+	        
+	        o.getScore("").setScore(8);
+	        o.getScore("Enigm n'a pas encoré démarré!").setScore(7);
+	        o.getScore("[INFO] qsldkq,dlk,").setScore(5);
+	        
+			
+		}
+	        
+	      currentPlayer.setScoreboard(currentSb);
+		
 	}
 	
     public Scoreboard getScoreboard() {

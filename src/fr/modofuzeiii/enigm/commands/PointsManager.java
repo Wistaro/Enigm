@@ -62,6 +62,12 @@ public class PointsManager implements CommandExecutor {
 		return false;
 	}
 	
+	public void clearAllPoints() {
+		for(String team : teams) {
+			updateTeamPointsPoints(team.toString(), 0);
+		}
+	}
+	
 	private void updateTeamPointsPoints(String team, int points) {
 		
     	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
