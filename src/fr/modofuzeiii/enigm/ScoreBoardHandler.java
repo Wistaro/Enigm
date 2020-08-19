@@ -19,27 +19,29 @@ public class ScoreBoardHandler implements Listener {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void setupSb() {
 		
         sb = Bukkit.getScoreboardManager().getNewScoreboard();
-
+        
         String statsBleu = "§9Bleue §r20pts";
         String statsRouge = "§cRouge §r20pts";
         String statsVert = "§2Vert §r20pts";
         String statsJaune = "§eJaune §r20pts";
         String timer = "§200h00m00s";
         String emptyStr = "     ";
-        
-        String spacer = "§7§m-------------------";
+        String emptyStr2 = "     ";
+        String spacer = "§6---------";
+        String bigspacer = "§6---------";
 
         Objective o = sb.registerNewObjective("title", "dummy");
-        o.setDisplayName("Enigm v0.1");
+        o.setDisplayName("§lEnigm v2.0");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
+                
+        Score seperate = o.getScore(bigspacer);
+        seperate.setScore(13);
         
-        Score top = o.getScore(spacer);
-        top.setScore(13);
-        
-        Score rien1 = o.getScore(emptyStr);
+        Score rien1 = o.getScore(emptyStr2);
         rien1.setScore(12);
         
         Score bleu = o.getScore(statsBleu);

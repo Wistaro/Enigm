@@ -20,6 +20,7 @@ public class EnigmMain extends JavaPlugin {
     private String host, database, username, password;
     private int port;
 	
+	@SuppressWarnings("unused")
 	@Override
 	public void onEnable() {
 		System.out.println("*******************");

@@ -19,8 +19,6 @@ public class joinLeaveEvents implements Listener {
         ScoreBoardHandler ScoreBoardHandler = new ScoreBoardHandler(p);
         ScoreBoardHandler.setupSb();
         
-        
-        
     }
 	
 	@EventHandler
