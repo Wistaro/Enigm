@@ -6,23 +6,34 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
 
 import fr.modofuzeiii.enigm.commands.AdminCommands;
 import fr.modofuzeiii.enigm.commands.BroadcastMessages;
 import fr.modofuzeiii.enigm.commands.HelpEnigmPlugin;
+import fr.modofuzeiii.enigm.commands.PointsManager;
+import fr.modofuzeiii.enigm.commands.TeamManager;
+import fr.modofuzeiii.enigm.database.DatabaseManager;
 import fr.modofuzeiii.enigm.game.GameManager;
 
+@SuppressWarnings("unused")
 public class EnigmMain extends JavaPlugin {
 	
 	/*Database info*/
-    private Connection connection;
-    private String host, database, username, password;
-    private int port;
+	private DatabaseManager databaseManager;
 	
-	@SuppressWarnings("unused")
+	public  ScoreBoardHandler sbHandler;
+	public TeamManager teamHandler;
+    
+    
+	
 	@Override
 	public void onEnable() {
+		
+		//saveDefaultConfig();
+		
 		System.out.println("*******************");
 		System.out.println("*                 *");
 		System.out.println("*                 *");
@@ -31,6 +42,11 @@ public class EnigmMain extends JavaPlugin {
 		System.out.println("*                 *");
 		System.out.println("*                 *");
 		System.out.println("*******************");
+		
+		/*Scoreboard!*/
+		
+		sbHandler = new ScoreBoardHandler(this);
+		teamHandler = new TeamManager(this);
 		
 		
 		/*Commandes*/
@@ -42,44 +58,27 @@ public class EnigmMain extends JavaPlugin {
 		getCommand("estart").setExecutor(new GameManager());
 		getCommand("estop").setExecutor(new GameManager());
 		getCommand("epause").setExecutor(new GameManager());
+		getCommand("pts").setExecutor(new PointsManager(this));
+		getCommand("teams").setExecutor(teamHandler);
 		
 		/*events*/
 		getServer().getPluginManager().registerEvents(new AdminEvents(), this);
-		getServer().getPluginManager().registerEvents(new joinLeaveEvents(), this);
+		getServer().getPluginManager().registerEvents(new joinLeaveEvents(this), this);
 		
-		/*Databse settings*/
+		/*Database handler*/
 		
-		host = "db4free.net";
-        port = 3306;
-        database = "enigm_bdd";
-        username = "fiouze";
-        password = "recrutements";  
+		databaseManager = new DatabaseManager();
+		
+		/*Debug */
+		
+		//String code1 = this.getConfig().getString("gameData.codes.code1");
+		
+		
         
-        /*Database connect*/
-        try {    
-            openConnection();
-            Statement statement = connection.createStatement();    
-            System.out.println("[Enigm] Connection a la base de donnee reussie!");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+  
 		
 	}
-	public void openConnection() throws SQLException, ClassNotFoundException {
-	    if (connection != null && !connection.isClosed()) {
-	        return;
-	    }
-	 
-	    synchronized (this) {
-	        if (connection != null && !connection.isClosed()) {
-	            return;
-	        }
-	        Class.forName("com.mysql.jdbc.Driver");
-	        connection = DriverManager.getConnection("jdbc:mysql://" + this.host+ ":" + this.port + "/" + this.database, this.username, this.password);
-	    }
-	}
+	
     @Override
     public void onDisable() {
         System.out.println("*******************");
@@ -90,5 +89,12 @@ public class EnigmMain extends JavaPlugin {
     	System.out.println("*                 *");
     	System.out.println("*                 *");
     	System.out.println("*******************");
+    	
+    	this.databaseManager.close();
         }
+    
+    public DatabaseManager getDatabaseManager() {
+    	return databaseManager;
+    }
+    
 }
