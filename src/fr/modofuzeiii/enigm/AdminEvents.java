@@ -151,6 +151,7 @@ public class AdminEvents implements Listener {
 			 if(e.getView().getTitle().equalsIgnoreCase("§3§lSe TP a un joueur")) {
 				String psdPlayer = e.getCurrentItem().getItemMeta().getDisplayName();
 				Player player2teleport = Bukkit.getPlayer(psdPlayer);
+				Player p2 = Bukkit.getPlayer(psdPlayer);
 				Location posPlayer = player2teleport.getLocation();
 				p.teleport(posPlayer);
 			}
@@ -159,55 +160,60 @@ public class AdminEvents implements Listener {
 		 
 		 /*****PARTIE SUR LES EFFETS MALUS BONUS****/
 		 
-		 if(e.getCurrentItem() != null) {		 
+		 if(e.getCurrentItem() != null) {
+			 
+			 String psdPlayer = e.getCurrentItem().getItemMeta().getDisplayName();
+			 Player p2 = Bukkit.getPlayer(psdPlayer);
+			 
 			 if(e.getView().getTitle().equalsIgnoreCase("§3§lAppliquer l'effet à :")) { //Apply les effets
 				 p.closeInventory();
 				 if(effect == 1) {
-					 p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*15, 1, false)); //20 car 1sec = 20 TICKS donc 20*<le nombre de secondes>
+					 
+					 p2.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*15, 1, false)); //20 car 1sec = 20 TICKS donc 20*<le nombre de secondes>
 					 effect = 0;
-					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §a§lBONHEUR §rva s'abattre sur quelqu'un !");
+					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §a§lmiracle §rva s'abattre sur quelqu'un !");
 					 for(Player p_online : Bukkit.getOnlinePlayers()) {
 				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_CAT_AMBIENT, 0.5F, 1F);			            			                         
 				      } 
 				 }
 				 if(effect == 2) {
-					 p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20*20, 2, false));
+					 p2.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20*20, 2, false));
 					 effect = 0;
-					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §a§lBONHEUR §rva s'abattre sur quelqu'un !");
+					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §a§lmiracle §rva s'abattre sur quelqu'un !");
 					 for(Player p_online : Bukkit.getOnlinePlayers()) {
 				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_CAT_AMBIENT, 0.5F, 1F);			            			                         
 				      } 
 				 }
 				 if(effect == 3) {
-					 p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*10, 1, false));
+					 p2.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*10, 1, false));
 					 effect = 0;
-					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lMALHEUR §rva s'abattre sur quelqu'un !");
+					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lmalheur §rva s'abattre sur quelqu'un !");
 					 for(Player p_online : Bukkit.getOnlinePlayers()) {
-				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.5F, 1F);			            			                         
+				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_BAT_DEATH, 0.5F, 0.5F);			            			                         
 				      } 
 				 }
 				 if(effect == 4) {
-					 p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 0, false));
+					 p2.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 0, false));
 					 effect = 0;
-					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lMALHEUR §rva s'abattre sur quelqu'un !");
+					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lmalheur §rva s'abattre sur quelqu'un !");
 					 for(Player p_online : Bukkit.getOnlinePlayers()) {
-				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.5F, 1F);			            			                         
+				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_BAT_DEATH, 0.5F, 0.5F);			            			                         
 				      } 
 				 }
 				 if(effect == 5) {
-					 p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 255, false));
+					 p2.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 255, false));
 					 effect = 0;
-					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lMALHEUR §rva s'abattre sur quelqu'un !");
+					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lmalheur §rva s'abattre sur quelqu'un !");
 					 for(Player p_online : Bukkit.getOnlinePlayers()) {
-				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.5F, 1F);			            			                         
+				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_BAT_DEATH, 0.5F, 0.5F);			            			                         
 				      } 
 				 }
 				 if(effect == 6) {
-					 p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 20*15, 1, false));
+					 p2.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 20*15, 1, false));
 					 effect = 0;
-					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lMALHEUR §rva s'abattre sur quelqu'un !");
+					 Bukkit.broadcastMessage("§e§l[§b§lEnigm§e§l]§r Un §c§lmalheur §rva s'abattre sur quelqu'un !");
 					 for(Player p_online : Bukkit.getOnlinePlayers()) {
-				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.5F, 1F);			            			                         
+				            p_online.playSound(p_online.getLocation(), Sound.ENTITY_BAT_DEATH, 0.5F, 0.5F);			            			                         
 				      } 
 				 } 
 			}

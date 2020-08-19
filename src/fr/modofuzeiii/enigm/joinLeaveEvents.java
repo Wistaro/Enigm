@@ -19,7 +19,7 @@ public class joinLeaveEvents implements Listener {
 	
 	private EnigmMain enigmMain;
 	private ScoreBoardHandler currentSbHandler;
-	private String prefixMessage = ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l]" + ChatColor.RESET;
+	private String prefixMessage = ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET;
 	
 	public joinLeaveEvents(EnigmMain mainInstance) {
 		enigmMain = mainInstance;
@@ -30,11 +30,12 @@ public class joinLeaveEvents implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         
-        Bukkit.broadcastMessage(prefixMessage + "Le joueur " + p.getName() + " vient de se connecter!" );
+        e.setJoinMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se connecter!");
         
         currentSbHandler.updateSb(p);
         
         TitleAPI.sendTitle(p, 10, 20, 10, "§cHey, "+p.getDisplayName()+"!", "Bienvenue sur Enigm!");
+        
         
         if(p.isOp()) {
         	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
@@ -122,9 +123,7 @@ public class joinLeaveEvents implements Listener {
 	@EventHandler
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Le joueur " + p.getName() + " vient de se déconnecter!" );
-
+        e.setQuitMessage(prefixMessage + "§eLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
     }
 	
 	

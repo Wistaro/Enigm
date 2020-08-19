@@ -31,3 +31,6 @@ commands:
     teams:
         description: Manage enigm teams
         permission: teams.use
+    ecode:
+        description: Code Command
+        permission: ecode.use

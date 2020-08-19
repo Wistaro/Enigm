@@ -14,6 +14,7 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import fr.modofuzeiii.enigm.database.DBConnection;
+import net.md_5.bungee.api.ChatColor;
 
 public class ScoreBoardHandler implements Listener {
 	
@@ -62,32 +63,32 @@ public class ScoreBoardHandler implements Listener {
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
                 
         Score seperate = o.getScore(bigspacer);
-        seperate.setScore(13);
+        seperate.setScore(9);
         
         Score rien1 = o.getScore(emptyStr2);
-        rien1.setScore(12);
+        rien1.setScore(8);
         
         Score bleu = o.getScore(statsBleu);
-        bleu.setScore(11);
+        bleu.setScore(7);
 
         Score rouge = o.getScore(statsRouge);
-        rouge.setScore(10);
+        rouge.setScore(6);
         
         Score vert = o.getScore(statsVert);
-        vert.setScore(9);
+        vert.setScore(5);
      
         Score jaune = o.getScore(statsJaune);
-        jaune.setScore(8);
+        jaune.setScore(4);
         
         
         Score rien2 = o.getScore(emptyStr);
-        rien2.setScore(7);
+        rien2.setScore(3);
         
         Score bottom = o.getScore(spacer);
-        bottom.setScore(6);
+        bottom.setScore(2);
         
         Score infoTimer = o.getScore(timer);
-        infoTimer.setScore(5);
+        infoTimer.setScore(1);
 	}
         
 	@SuppressWarnings("deprecation")
@@ -110,30 +111,22 @@ public class ScoreBoardHandler implements Listener {
 			this.pointsRouge = getTeamPoints("rouge");
 	
 	
-	        String statsBleu = "§9Bleue §r"+this.pointsBleu+"pts";
+	        String statsBleu = "§9Bleu §r"+this.pointsBleu+"pts";
 	        String statsRouge = "§cRouge §r"+this.pointsRouge+"pts";
 	        String statsVert = "§2Vert §r"+this.pointsVert+"pts";
 	        String statsJaune = "§eJaune §r"+this.pointsJaune+"pts";
-	        String timer = "§200h00m00s";
+	        String timer = "§a00h00m00s";
 	        String emptyStr = "     ";
 	        
-	        String spacer = "§6§m-------------------";
-	
+	        String spacer = "§6----------";
+	        String espace = "§6----------";
 	        
 	        o.setDisplayName("§lEnigm v0.1");
 	        o.setDisplaySlot(DisplaySlot.SIDEBAR);
 	        
+	        o.getScore(espace + " ").setScore(9);
 	        
-			
-			o.getScore("").setScore(7);
-			o.getScore("     §oBy Wistaro & KingL").setScore(9);
-			o.getScore(spacer).setScore(7);
-		
-	        o.getScore(spacer).setScore(10);
-	        
-	        o.getScore(spacer).setScore(9);
-	        
-	        o.getScore(emptyStr).setScore(8);
+	        o.getScore("").setScore(8);
 	        
 	        o.getScore(statsBleu).setScore(7);
 	        

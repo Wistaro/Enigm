@@ -12,9 +12,21 @@ public class GameManager implements CommandExecutor {
 		
 		if(sender instanceof Player) {
 			Player p = (Player)sender;
-			
-			
-		
+			if(cmd.getName().equalsIgnoreCase("estart")) {
+				
+				/*
+				 * Timer 30sec
+				 * Title "bon jeu" etc + effets blindness etc
+				 * Tp tout le monde au spawn (co dans message épinglés)
+				 * scoreboard qui apparaît
+				 * */
+			}
+			if(cmd.getName().equalsIgnoreCase("epause")) {
+				
+			}
+			if(cmd.getName().equalsIgnoreCase("estop")) {
+				
+			}
 		}
 		
 		return false;
