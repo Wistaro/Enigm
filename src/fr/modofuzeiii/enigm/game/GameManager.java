@@ -1,6 +1,7 @@
 package fr.modofuzeiii.enigm.game;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -49,10 +50,10 @@ public class GameManager implements CommandExecutor {
 			if(cmd.getName().equalsIgnoreCase("estart")) {
 				
 				/*
-				 * Timer 30sec
-				 * Title "bon jeu" etc + effets blindness etc
-				 * Tp tout le monde au spawn (co dans message épinglés)
-				 * scoreboard qui apparaît
+				 * Timer 30sec Done
+				 * Title "bon jeu" etc + effets blindness etc Done
+				 * Tp tout le monde au spawn (co dans message épinglés) Done
+				 * scoreboard qui apparaît Done
 				 * */
 				enigmMain.isGameStarted = 1;
 
@@ -112,9 +113,9 @@ public class GameManager implements CommandExecutor {
                 	  
                 	  enigmMain.currentChronoAtStartup = 2;
                 	  sendTitle2all("§e§lC'est parti! ", "§a§lBon jeu :)");
-                	  p_online.playSound(p_online.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1F, 0.5F);
                 	  Location spawn = new Location(p_online.getWorld(),6.5 ,223 ,0-25.5);
                 	  p_online.teleport(spawn);
+                	  p_online.playSound(p_online.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1F, 0.5F);
                 	  initGame();
                 	  cancel();
                   }
@@ -123,6 +124,7 @@ public class GameManager implements CommandExecutor {
                 	  switch (counter) {
 					case 5:
 			      		p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 2F);
+			      		Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Plugin by Wistaro & King L !");
 						break;
 					case 6:
 						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.9F);
@@ -179,8 +181,6 @@ public class GameManager implements CommandExecutor {
 		pointsHandler.clearAllPoints();
 		currentSbHandler.updateScoreboard4All();
 		
-		//todo : tp players 
-		//todo: give blindness effect
 		//todo: start general counter (in scoreboard)
 	}
 

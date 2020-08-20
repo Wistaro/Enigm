@@ -32,6 +32,15 @@ public class joinLeaveEvents implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         e.setJoinMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se connecter!");
+        
+        /* Petit Troll :p */
+        if (e.getPlayer().getName().equalsIgnoreCase("FanaPik")) {
+			e.setJoinMessage(prefixMessage+"Le vil §lFanaPik §rde la plèbasse est §o(malheureusement) §rlà !");
+		}
+        if (e.getPlayer().getName().equalsIgnoreCase("Sinaynomis")) {
+			e.setJoinMessage(prefixMessage+"§lSinaynomis §raka la perte de mémoire fréquente (KingL orga aussi l'event) est là !");
+		}
+        
         currentSbHandler.updateSb(p);
         TitleAPI.sendTitle(p, 10, 20, 10, "§cHey, "+p.getDisplayName()+"!", "Bienvenue sur Enigm!");
         
@@ -134,6 +143,13 @@ public class joinLeaveEvents implements Listener {
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         e.setQuitMessage(prefixMessage + "§eLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
+        
+        if (e.getPlayer().getName().equalsIgnoreCase("FanaPik")) {
+			e.setQuitMessage(prefixMessage+"La canaille de §lxXF4nAP1KXx §r n'est plus là ! §o(c'est pas trop tôt)");
+		}
+        if (e.getPlayer().getName().equalsIgnoreCase("Sinaynomis")) {
+			e.setQuitMessage(prefixMessage+"§lSinaynomis §raka la perte de mémoire fréquente (KingL orga aussi l'event) n'est plus là !");
+		}
         
         if(p.isOp()) {
         	e.setQuitMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r vient de partir!");
