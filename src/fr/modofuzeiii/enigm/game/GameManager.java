@@ -1,11 +1,14 @@
 package fr.modofuzeiii.enigm.game;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -20,12 +23,15 @@ public class GameManager implements CommandExecutor {
 	private ScoreBoardHandler currentSbHandler;
 	private PointsManager pointsHandler;
 	
+	@SuppressWarnings("unused")
 	private int currentSeconds;
 	private int maxSeconds;
 	
+	@SuppressWarnings("unused")
 	private BukkitTask taskChronoStart;
 	
 	public GameManager(EnigmMain mainClass, PointsManager pointsManagerClass) {
+		
 		enigmMain = mainClass;
 		currentSbHandler = enigmMain.sbHandler;
 		pointsHandler = pointsManagerClass;
@@ -34,7 +40,6 @@ public class GameManager implements CommandExecutor {
 		currentSeconds = 0;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
@@ -55,7 +60,6 @@ public class GameManager implements CommandExecutor {
 				enigmMain.currentChronoAtStartup = 1;
 				launchStartupSequence();
 				
-				
 			}
 			if(cmd.getName().equalsIgnoreCase("epause")) {
 				
@@ -74,6 +78,8 @@ public class GameManager implements CommandExecutor {
 	
 	private void launchStartupSequence() {
 		
+		for(Player p_online : Bukkit.getOnlinePlayers()) {
+		
 		taskChronoStart = new BukkitRunnable() {
 			
 			int counter = 0;
@@ -88,9 +94,10 @@ public class GameManager implements CommandExecutor {
                   if(counter <= 4) {
                 	  
                 	  if(firstMessageDone == 0) {
-                		  
-                		  sendTitle2all("§c§lEnigm ", "§cLa partie va commencer!");
-                		  
+                		  p_online.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*16, 255, false));
+                		  p_online.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*16, 0, false));
+                		  sendTitle2all("§e§lEnigm ", "§cLa partie va commencer!");
+                		  sendsound();
                 		  firstMessageDone = 1;
                 	  }
                 	  
@@ -99,28 +106,72 @@ public class GameManager implements CommandExecutor {
                 	  
                 	  reverseCounter = 15 - counter;
                 	  
-                	  sendTitle2all("§cDémarrage dans",  "§c§l"+String.valueOf(reverseCounter)+" secondes!");
+                	  sendTitle2all("§cDémarrage dans",  "§a§l"+String.valueOf(reverseCounter)+" secondes!");
                 	  
                   }else if(counter >= maxSeconds + 5) {
                 	  
                 	  enigmMain.currentChronoAtStartup = 2;
-                	  sendTitle2all("§c§lC'est parti! ", "§c§lBon jeu :)");
-                	  
+                	  sendTitle2all("§e§lC'est parti! ", "§a§lBon jeu :)");
+                	  p_online.playSound(p_online.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1F, 0.5F);
+                	  Location spawn = new Location(p_online.getWorld(),6.5 ,223 ,0-25.5);
+                	  p_online.teleport(spawn);
                 	  initGame();
-                	  
                 	  cancel();
-                	  
                   }
+                  
+                  /* PlaySound Manager */
+                	  switch (counter) {
+					case 5:
+			      		p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 2F);
+						break;
+					case 6:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.9F);
+						break;
+					case 7:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.8F);
+						break;
+					case 8:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.7F);
+						break;
+					case 9:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.6F);
+						break;
+					case 10:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.5F);
+						break;
+					case 11:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.4F);
+						break;
+					case 12:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.3F);
+						break;
+					case 13:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.2F);
+						break;
+					case 14:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.1F);
+						break;
+					case 15:
+						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1F);
+						break;
+
+					default:
+						break;
+					}
              }
       }.runTaskTimer(enigmMain, 0, 20);
-		
+	 }
+	}
+	
+	private void sendsound() {
+        for(Player p_online : Bukkit.getOnlinePlayers()) {
+      		 p_online.playSound(p_online.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2F);
+        }
 	}
 	
 	private void sendTitle2all(String message, String subtitle) {
-		
 		for(Player p_online : Bukkit.getOnlinePlayers()) {
 			 TitleAPI.sendTitle(p_online, 10, 20, 10, message, subtitle);
-			 p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5F, 2F);
       } 
 	}
 	

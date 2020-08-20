@@ -28,7 +28,7 @@ public class BroadcastMessages implements CommandExecutor {
 						bc.append(part +" ");
 					}
 					
-					Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + bc.toString());
+					Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lAnnonce" + ChatColor.YELLOW + "§l] §6§l" + p.getName() + "§r: " + bc.toString());
 					
 				}              
 			      for(Player p_online : Bukkit.getOnlinePlayers()) {

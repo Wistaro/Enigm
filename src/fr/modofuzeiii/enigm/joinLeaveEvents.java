@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,26 +31,32 @@ public class joinLeaveEvents implements Listener {
 	@EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        
         e.setJoinMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se connecter!");
-        
         currentSbHandler.updateSb(p);
-        
         TitleAPI.sendTitle(p, 10, 20, 10, "§cHey, "+p.getDisplayName()+"!", "Bienvenue sur Enigm!");
+        
+        /* PlayerTeleportLobby */
+        if(enigmMain.isGameStarted == 0) {
+        	Location lobby = new Location(p.getWorld(),994.5,103,1291.5);
+        	p.teleport(lobby);
+        }else {
+        	p.sendMessage(prefixMessage + "§aLa partie est déjà en cours !");
+        }
+        /* PlayerTeleportLobby */
         
         
         if(p.isOp()) {
         	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
-        	
+        	e.setJoinMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r est arrivé!"); //Pour l'égo mdrrr
         }else {
         
-        /*Check is player is in a team*/
-        
+        	
+        /*Check if player is in a team*/
         String playerTeam = getPlayerTeam(p);
         
         if (playerTeam.equalsIgnoreCase("0")) {
-        	p.sendMessage("Oh oh! Vous n'avez pas de team! ");
-        	p.sendMessage("Laissons le hasard vous trouver une équipe... ");
+        	p.sendMessage("§6§l» §rOh oh! Vous n'avez pas de team! ");
+        	p.sendMessage("§6§l» §rLaissons le hasard vous trouver une équipe... ");
         	
         	int redPlayers = getNbPlayersInTeam("rouge");
         	int bluePlayers = getNbPlayersInTeam("bleu");
@@ -66,23 +74,23 @@ public class joinLeaveEvents implements Listener {
         		switch(rdm) {
         		  case 1:
         		    if(redPlayers < maxPerTeam) {
-        		    	Bukkit.broadcastMessage(prefixMessage+"Le joueur "+p.getDisplayName()+" rejoint la team ROUGE!");
+        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §c§lROUGE§r !");
         		    	teamFound = 42;
-        		    	p.setPlayerListName("§4§l[ROUGE]§r§4 " + p.getName());
+        		    	p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
         		    }
         		    break;
         		    
         		  case 2:
           		    if(bluePlayers < maxPerTeam) {
-          		    	Bukkit.broadcastMessage(prefixMessage+"Le joueur "+p.getDisplayName()+" rejoint la team BLEUE!");
+          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §9§lBLEU§r !");
           		    	teamFound = 42;
-          		    	p.setPlayerListName("§1§l[BLEUE]§r§1 " + p.getName());
+          		    	p.setPlayerListName("§9§l[BLEU]§r§9 " + p.getName());
           		    }
           		    break;
           		    
         		  case 3:
         		    if(yellowPlayers < maxPerTeam) {
-        		    	Bukkit.broadcastMessage(prefixMessage+"Le joueur "+p.getDisplayName()+" rejoint la team JAUNE!");
+        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §e§lJAUNE§r !");
         		    	teamFound = 42;
         		    	p.setPlayerListName("§e§l[JAUNE]§r§e " + p.getName());
         		    }
@@ -90,7 +98,7 @@ public class joinLeaveEvents implements Listener {
         		    
         		  case 4:
           		    if(greenPlayers < maxPerTeam) {
-          		    	Bukkit.broadcastMessage(prefixMessage+"Le joueur "+p.getDisplayName()+" rejoint la team VERTE!");
+          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §2§lVERTE §r!");
           		    	teamFound = 42;
           		    	p.setPlayerListName("§2§l[VERT]§r§2 " + p.getName());
           		    }
@@ -103,7 +111,9 @@ public class joinLeaveEvents implements Listener {
         		}
         		
         		if(teamFound == 0) {
-      		    	p.sendMessage("C'est compliqué de te trouver une team...Voyons où il reste de la place...");
+      		    	p.sendMessage("§6§l» §rC'est compliqué de te trouver une team...Voyons où il reste de la place...");
+      		    	p.sendMessage("§6§l» §rPlace non trouvée, vous devenez un simple spectateur!");
+      		    	p.setGameMode(GameMode.SPECTATOR);
       		    }
         		
         		
@@ -124,6 +134,10 @@ public class joinLeaveEvents implements Listener {
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         e.setQuitMessage(prefixMessage + "§eLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
+        
+        if(p.isOp()) {
+        	e.setQuitMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r vient de partir!");
+        }
     }
 	
 	
