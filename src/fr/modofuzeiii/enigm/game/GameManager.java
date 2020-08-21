@@ -71,6 +71,18 @@ public class GameManager implements CommandExecutor {
 				currentSbHandler.updateScoreboard4All();
 				
 			}
+			
+			if(cmd.getName().equalsIgnoreCase("reloadPlayer")) {
+							
+				
+				String playerStr = args[0];
+				Player playerTestPlayer = Bukkit.getPlayer(playerStr);
+				
+				currentSbHandler.updateSb(playerTestPlayer);
+				
+				p.sendMessage("Scoreboard mis a jour pour "+playerTestPlayer.getDisplayName());
+							
+			}
 		}
 		
 		return false;

@@ -124,7 +124,8 @@ public class ScoreBoardHandler implements Listener {
     public void updateScoreboard4All() {
     	
     	for(Player p_online : Bukkit.getOnlinePlayers()) {
-				this.updateSb(p_online);
+    			updateSb(p_online);
+				Bukkit.broadcastMessage("Update scoreboard for player: "+p_online.getDisplayName());
 	      } 
     }
     

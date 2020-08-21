@@ -34,3 +34,7 @@ commands:
     ecode:
         description: Code Command
         permission: ecode.use
+    reloadPlayer:
+        description: Code Command
+        permission: ecode.use
+        
