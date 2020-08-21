@@ -9,6 +9,7 @@ public class DatabaseManager {
 	
 	public DatabaseManager() {
 		this.enigmConnectionDb = new DBConnection(new DBCredentials("db4free.net", "fiouze", "recrutements", "enigm_bdd", 3306));
+		//this.enigmConnectionDb = new DBConnection(new DBCredentials("minecraft1256.omgserv.com", "minecraft_299501", "recrutements", "minecraft_299501", 3306));
 	}
 	
 	public void close() {
