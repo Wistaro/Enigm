@@ -28,6 +28,10 @@ public class ScoreBoardHandler implements Listener {
 	public int pointsJaune;
 	public int pointsBleu;
 	
+	public int gameCounterSb;
+	
+	
+	
 	private EnigmMain enigmMain;
 	
 	public String[] teams;
@@ -59,9 +63,7 @@ public class ScoreBoardHandler implements Listener {
 		
 		if(enigmMain.isGameStarted == 1) {
 
-		Bukkit.getScheduler().runTaskAsynchronously(enigmMain, (Runnable) () -> {	
-			
-			System.out.println("Updating scoreboard!");
+		//Bukkit.getScheduler().runTaskAsynchronously(enigmMain, (Runnable) () -> {	
 		
 			this.pointsBleu = getInternalTeamPoints("bleu"); 
 			this.pointsJaune = getInternalTeamPoints("jaune");
@@ -73,7 +75,7 @@ public class ScoreBoardHandler implements Listener {
 	        String statsRouge = "§cRouge §r"+this.pointsRouge+"pts";
 	        String statsVert = "§2Vert §r"+this.pointsVert+"pts";
 	        String statsJaune = "§eJaune §r"+this.pointsJaune+"pts";
-	        String timer = "§a00h00m00s";
+	        String timer = convertDate(gameCounterSb);
 	        String emptyStr = "     ";
 	       
 	        
@@ -98,7 +100,7 @@ public class ScoreBoardHandler implements Listener {
 	        
 	        o.getScore(timer).setScore(1);
 	        
-		});
+		//});
 		
 		}else {
 			
@@ -230,6 +232,31 @@ public class ScoreBoardHandler implements Listener {
     
     public boolean isTeamExists(String team) {
     	return Arrays.asList(teams).contains(team);
+    }
+    
+    public String convertDate(int seconds) {
+    	
+    	int sec = (int) (seconds) % 60 ;
+    	int min = (int) ((seconds/60) % 60);
+    	int hr   = (int) ((seconds / (60*60) ) % 24);
+    	
+    	
+    	String sec_str = Integer.toString(sec);
+    	String min_str = Integer.toString(min);
+    	String hr_str = Integer.toString(hr);
+    	
+    	if(sec < 10) {
+    		sec_str = "0"+sec_str;
+    	}
+    	if(min < 10) {
+    		min_str = "0"+min_str;
+    	}
+    	if(hr < 10) {
+    		hr_str = "0"+hr_str;
+    	}
+    	
+		return "§a"+hr_str + " : "+min_str+" : "+sec_str;
+    	
     }
 
 }

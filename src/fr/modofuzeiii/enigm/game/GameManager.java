@@ -17,12 +17,20 @@ import fr.modofuzeiii.enigm.EnigmMain;
 import fr.modofuzeiii.enigm.ScoreBoardHandler;
 import fr.modofuzeiii.enigm.TitleAPI;
 import fr.modofuzeiii.enigm.commands.PointsManager;
+import fr.modofuzeiii.enigm.tasks.ScoreboardUpdate;
+import fr.modofuzeiii.enigm.tasks.StartupCounter;
 
 public class GameManager implements CommandExecutor {
 	
-	private EnigmMain enigmMain;
-	private ScoreBoardHandler currentSbHandler;
+	public EnigmMain enigmMain;
+	public ScoreBoardHandler currentSbHandler;
 	private PointsManager pointsHandler;
+	
+	
+	private ScoreboardUpdate gameTimer;
+	private StartupCounter introCounter;
+	
+	public int gameTimeCounter;
 	
 	@SuppressWarnings("unused")
 	private int currentSeconds;
@@ -36,6 +44,9 @@ public class GameManager implements CommandExecutor {
 		enigmMain = mainClass;
 		currentSbHandler = enigmMain.sbHandler;
 		pointsHandler = pointsManagerClass;
+		
+		gameTimer = new ScoreboardUpdate(this);	 
+		introCounter = new StartupCounter(this);
 		
 		maxSeconds = 10;
 		currentSeconds = 0;
@@ -63,6 +74,7 @@ public class GameManager implements CommandExecutor {
 					 
 					enigmMain.isGameStarted = 1;
 					enigmMain.currentChronoAtStartup = 1;
+					currentSbHandler.gameCounterSb = 0;
 					
 					if(args.length > 0) {
 						
@@ -87,7 +99,9 @@ public class GameManager implements CommandExecutor {
 			if(cmd.getName().equalsIgnoreCase("estop")) {
 				
 				enigmMain.isGameStarted = 0;
+				gameTimeCounter = 0;
 				currentSbHandler.updateScoreboard4All();
+				gameTimer.cancel();
 				
 			}
 
@@ -99,7 +113,9 @@ public class GameManager implements CommandExecutor {
 	
 	private void launchStartupSequence() {
 		
-		for(Player p_online : Bukkit.getOnlinePlayers()) {
+		introCounter.runTaskTimer(enigmMain, 0, 20);
+		
+		/*for(Player p_online : Bukkit.getOnlinePlayers()) {
 		
 		taskChronoStart = new BukkitRunnable() {
 			
@@ -140,7 +156,7 @@ public class GameManager implements CommandExecutor {
                 	  cancel();
                   }
                   
-                  /* PlaySound Manager */
+                  
                 	  switch (counter) {
 					case 5:
 			      		p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 2F);
@@ -182,38 +198,60 @@ public class GameManager implements CommandExecutor {
 					}
              }
       }.runTaskTimer(enigmMain, 0, 20);
-	 }
+	 }*/
 	}
 	
-	private void sendsound() {
+	/*private void sendsound() {
         for(Player p_online : Bukkit.getOnlinePlayers()) {
       		 p_online.playSound(p_online.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT , 1F, 1F);
         }
-	}
+	}*/
 	
-	private void sendTitle2all(String message, String subtitle) {
+	public void sendTitle2all(String message, String subtitle) {
 		for(Player p_online : Bukkit.getOnlinePlayers()) {
 			 TitleAPI.sendTitle(p_online, 10, 20, 10, message, subtitle);
       } 
 	}
 	
-	private void initGame() {
+	public  void initGame() {
+		
+		//introCounter.cancel();
 		pointsHandler.clearAllPoints();
 		currentSbHandler.updateScoreboard4All();
 		
 		//todo: start general counter (in scoreboard)
+		gameTimeCounter = 0;
+		
+		gameTimer.runTaskTimer(enigmMain, 0, 20);
+		
 	}
 	
 	//Teleport all player for starting the game
 	
-	private void teleportAllPlayerForStart() {
+	public void teleportAllPlayerForStart() {
 		
 		for(Player p_online : Bukkit.getOnlinePlayers()) {
 			
       	  Location spawn = new Location(p_online.getWorld(),6.5 ,223 ,0-25.5);
       	  p_online.teleport(spawn);
       	  p_online.playSound(p_online.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1F, 0.5F);
-     } 
+		} 
+	}
+	
+	public void playSound4all(Sound sound, float volume, float pitch) {
+		
+		for(Player p_online : Bukkit.getOnlinePlayers()) {
+     		 p_online.playSound(p_online.getLocation(), sound , volume, pitch);
+       }
+		
+	}
+	
+	public void addPotionEffect4all(PotionEffectType effectType, int duration, int ampli, boolean ambiant) {
+		
+		for(Player p_online : Bukkit.getOnlinePlayers()) {
+			p_online.addPotionEffect(new PotionEffect(effectType, duration, ampli, ambiant));
+       }
+		
 	}
 
 }
