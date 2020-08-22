@@ -85,7 +85,7 @@ public class GameManager implements CommandExecutor {
 						}
 						
 					}else {
-						launchStartupSequence();
+						startIntroSequence();
 					}
 				}else {
 					p.sendMessage("Impossible de démarrer la partie, celle -ci est déjà en cours!");
@@ -110,102 +110,9 @@ public class GameManager implements CommandExecutor {
 		return false;
 	}
 	
-	
-	private void launchStartupSequence() {
-		
+	private void startIntroSequence() {
 		introCounter.runTaskTimer(enigmMain, 0, 20);
-		
-		/*for(Player p_online : Bukkit.getOnlinePlayers()) {
-		
-		taskChronoStart = new BukkitRunnable() {
-			
-			int counter = 0;
-			int reverseCounter;
-			int firstMessageDone = 0;
-			
-            @Override
-             public void run() {
-            		               
-                  counter++;
-                  
-                  if(counter <= 4) {
-                	  
-                	  if(firstMessageDone == 0) {
-                		  p_online.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*16, 255, false));
-                		  p_online.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*16, 0, false));
-                		  sendTitle2all("§e§lEnigm ", "§cBy Wistaro & King");
-                		  sendsound();
-                		  firstMessageDone = 1;
-                	  }
-                	  
-                	  
-                  }else if(counter >=5 && counter <= maxSeconds + 5) {
-                	  
-                	  reverseCounter = 15 - counter;
-                	  
-                	  sendTitle2all("§cDémarrage dans",  "§a§l"+String.valueOf(reverseCounter)+" secondes!");
-                	  
-                  }else if(counter >= maxSeconds + 5) {
-                	  
-                	  enigmMain.currentChronoAtStartup = 2;
-                	  sendTitle2all("§e§lC'est parti! ", "§a§lBon jeu :)");
-                	  Location spawn = new Location(p_online.getWorld(),6.5 ,223 ,0-25.5);
-                	  p_online.teleport(spawn);
-                	  p_online.playSound(p_online.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1F, 0.5F);
-                	  initGame();
-                	  cancel();
-                  }
-                  
-                  
-                	  switch (counter) {
-					case 5:
-			      		p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 2F);
-			      		Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Plugin by Wistaro & King L !");
-						break;
-					case 6:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.9F);
-						break;
-					case 7:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.8F);
-						break;
-					case 8:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.7F);
-						break;
-					case 9:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.6F);
-						break;
-					case 10:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.5F);
-						break;
-					case 11:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.4F);
-						break;
-					case 12:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.3F);
-						break;
-					case 13:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.2F);
-						break;
-					case 14:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.1F);
-						break;
-					case 15:
-						p_online.playSound(p_online.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1F);
-						break;
-
-					default:
-						break;
-					}
-             }
-      }.runTaskTimer(enigmMain, 0, 20);
-	 }*/
 	}
-	
-	/*private void sendsound() {
-        for(Player p_online : Bukkit.getOnlinePlayers()) {
-      		 p_online.playSound(p_online.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT , 1F, 1F);
-        }
-	}*/
 	
 	public void sendTitle2all(String message, String subtitle) {
 		for(Player p_online : Bukkit.getOnlinePlayers()) {
@@ -215,7 +122,8 @@ public class GameManager implements CommandExecutor {
 	
 	public  void initGame() {
 		
-		//introCounter.cancel();
+		introCounter.cancel();
+		
 		pointsHandler.clearAllPoints();
 		currentSbHandler.updateScoreboard4All();
 		

@@ -28,7 +28,7 @@ public class StartupCounter extends BukkitRunnable {
 		
 		if(currentGame.enigmMain.currentChronoAtStartup == 1) {
 			
-			currentGame.enigmMain.currentChronoAtStartup = 2; //isCounting
+			counter++;
 			
 			if(counter <= 4) {
           	  
