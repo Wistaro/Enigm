@@ -109,7 +109,7 @@ public class GameManager implements CommandExecutor {
                 	  if(firstMessageDone == 0) {
                 		  p_online.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*16, 255, false));
                 		  p_online.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*16, 0, false));
-                		  sendTitle2all("§e§lEnigm ", "§cLa partie va commencer!");
+                		  sendTitle2all("§e§lEnigm ", "§cBy Wistaro & King");
                 		  sendsound();
                 		  firstMessageDone = 1;
                 	  }
@@ -179,7 +179,7 @@ public class GameManager implements CommandExecutor {
 	
 	private void sendsound() {
         for(Player p_online : Bukkit.getOnlinePlayers()) {
-      		 p_online.playSound(p_online.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 2F);
+      		 p_online.playSound(p_online.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT , 1F, 1F);
         }
 	}
 	

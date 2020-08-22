@@ -56,6 +56,7 @@ public class joinLeaveEvents implements Listener {
         
         if(p.isOp()) {
         	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
+        	p.setDisplayName("§6§l[GameMaster]§r§6 " + p.getName());
         	e.setJoinMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r est arrivé!"); //Pour l'égo mdrrr
         }else {
         
@@ -132,6 +133,33 @@ public class joinLeaveEvents implements Listener {
         	
         	
         	
+        }else {
+        	
+        	switch(playerTeam) {
+        	
+  		  case "rouge":
+  			p.setDisplayName("§c§l[ROUGE]§r§c " + p.getName());
+  			p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
+  			break;
+  		  case "bleu":
+  			p.setDisplayName("§9§l[BLEU]§r§9 " + p.getName());
+  			p.setPlayerListName("§9§l[BLEU]§r§9 " + p.getName());
+  			break;
+  		  case "vert":
+  			p.setDisplayName("§2§l[VERT]§r§2 " + p.getName());
+  			p.setPlayerListName("§2§l[VERT]§r§2 " + p.getName());
+  			break;
+  		  case "jaune":
+  			p.setDisplayName("§e§l[JAUNE]§r§e " + p.getName());
+  			p.setPlayerListName("§e§l[JAUNE]§r§e " + p.getName());
+  			break;
+		  default:
+			  p.setDisplayName("§c§l[????]§r§c " + p.getName());
+			  p.setPlayerListName("§e§l[????]§r§e " + p.getName());
+		    break;
+        	}
+        	
+        	
         }
         
 	}
@@ -142,7 +170,7 @@ public class joinLeaveEvents implements Listener {
 	@EventHandler
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        e.setQuitMessage(prefixMessage + "§eLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
+        e.setQuitMessage(prefixMessage + "§r§eLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
         
         if (e.getPlayer().getName().equalsIgnoreCase("FanaPik")) {
 			e.setQuitMessage(prefixMessage+"La canaille de §lxXF4nAP1KXx §r n'est plus là ! §o(c'est pas trop tôt)");
