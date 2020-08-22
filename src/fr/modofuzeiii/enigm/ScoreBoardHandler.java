@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,10 +23,10 @@ public class ScoreBoardHandler implements Listener {
 	private Player currentPlayer;
 	private Objective o;
 	
-	private int pointsRouge;
-	private int pointsVert;
-	private int pointsJaune;
-	private int pointsBleu;
+	public int pointsRouge;
+	public int pointsVert;
+	public int pointsJaune;
+	public int pointsBleu;
 	
 	private EnigmMain enigmMain;
 	
@@ -62,10 +63,10 @@ public class ScoreBoardHandler implements Listener {
 			
 			System.out.println("Updating scoreboard!");
 		
-			this.pointsBleu = getTeamPoints("bleu"); 
-			this.pointsJaune = getTeamPoints("jaune");
-			this.pointsVert = getTeamPoints("vert");
-			this.pointsRouge = getTeamPoints("rouge");
+			this.pointsBleu = getInternalTeamPoints("bleu"); 
+			this.pointsJaune = getInternalTeamPoints("jaune");
+			this.pointsVert = getInternalTeamPoints("vert");
+			this.pointsRouge = getInternalTeamPoints("rouge");
 	
 	
 	        String statsBleu = "§9Bleu §r"+this.pointsBleu+"pts";
@@ -125,11 +126,10 @@ public class ScoreBoardHandler implements Listener {
     	
     	for(Player p_online : Bukkit.getOnlinePlayers()) {
     			updateSb(p_online);
-				Bukkit.broadcastMessage("Update scoreboard for player: "+p_online.getDisplayName());
 	      } 
     }
     
-    private int getTeamPoints(String team) {
+    public int getTeamPointsFromBdd(String team) {
     	
     	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
     		   		
@@ -158,6 +158,78 @@ public class ScoreBoardHandler implements Listener {
     	
  
 		return -1;
+    }
+    
+    private int getInternalTeamPoints(String team) {
+    	
+    	int output;
+    	
+    	if(isTeamExists(team)) {
+    		
+    		switch(team) {
+        	
+    		  case "rouge":
+    			  output = this.pointsRouge;
+    			break;
+    			
+    		  case "bleu":
+    			  output = this.pointsBleu;
+    			break;
+    			
+    		  case "vert":
+    			  output = this.pointsVert;
+    			break;
+    			
+    		  case "jaune":
+    			  output = this.pointsJaune;
+    			break;
+    			
+	  		  default:
+	  			output =  -42;
+	  		    break;
+          	}
+    	}else {
+    		output = -99;
+    	}
+    	
+    	return output;
+    }
+    
+    public void setInternalTeamPoints(String team, int pts) {
+    	
+    	if(isTeamExists(team)) {
+    		
+    		switch(team) {
+        	
+    		  case "rouge":
+    			  this.pointsRouge = pts;
+    			break;
+    			
+    		  case "bleu":
+    			  this.pointsBleu = pts;
+    			break;
+    			
+    		  case "vert":
+    			  this.pointsVert = pts;
+    			break;
+    			
+    		  case "jaune":
+    			  this.pointsJaune = pts;
+    			break;
+    			
+	  		  default:
+	  			
+	  		    break;
+          	}
+    		
+    		this.updateScoreboard4All();
+    	}
+    	
+    	
+    }
+    
+    public boolean isTeamExists(String team) {
+    	return Arrays.asList(teams).contains(team);
     }
 
 }

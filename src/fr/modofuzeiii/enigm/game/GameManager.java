@@ -47,21 +47,40 @@ public class GameManager implements CommandExecutor {
 		if(sender instanceof Player) {
 			Player p = (Player)sender;
 			
+			
+			
 			if(cmd.getName().equalsIgnoreCase("estart")) {
 				
-				/*
-				 * Timer 30sec Done
-				 * Title "bon jeu" etc + effets blindness etc Done
-				 * Tp tout le monde au spawn (co dans message épinglés) Done
-				 * scoreboard qui apparaît Done
-				 * */
-				enigmMain.isGameStarted = 1;
-
+				if(enigmMain.isGameStarted != 1) { //Si la partie n'a pas déjà commencée...
 				
-				enigmMain.currentChronoAtStartup = 1;
-				launchStartupSequence();
-				
+					/*
+					 * Timer 30sec Done
+					 * Title "bon jeu" etc + effets blindness etc Done
+					 * Tp tout le monde au spawn (co dans message épinglés) Done
+					 * scoreboard qui apparaît Done
+					 * */
+					
+					 
+					enigmMain.isGameStarted = 1;
+					enigmMain.currentChronoAtStartup = 1;
+					
+					if(args.length > 0) {
+						
+						if(args[0].equalsIgnoreCase("false")) {
+							
+							teleportAllPlayerForStart();
+							initGame();	
+						}
+						
+					}else {
+						launchStartupSequence();
+					}
+				}else {
+					p.sendMessage("Impossible de démarrer la partie, celle -ci est déjà en cours!");
+				}
 			}
+			
+			
 			if(cmd.getName().equalsIgnoreCase("epause")) {
 				
 			}
@@ -71,18 +90,7 @@ public class GameManager implements CommandExecutor {
 				currentSbHandler.updateScoreboard4All();
 				
 			}
-			
-			if(cmd.getName().equalsIgnoreCase("reloadPlayer")) {
-							
-				
-				String playerStr = args[0];
-				Player playerTestPlayer = Bukkit.getPlayer(playerStr);
-				
-				currentSbHandler.updateSb(playerTestPlayer);
-				
-				p.sendMessage("Scoreboard mis a jour pour "+playerTestPlayer.getDisplayName());
-							
-			}
+
 		}
 		
 		return false;
@@ -194,6 +202,18 @@ public class GameManager implements CommandExecutor {
 		currentSbHandler.updateScoreboard4All();
 		
 		//todo: start general counter (in scoreboard)
+	}
+	
+	//Teleport all player for starting the game
+	
+	private void teleportAllPlayerForStart() {
+		
+		for(Player p_online : Bukkit.getOnlinePlayers()) {
+			
+      	  Location spawn = new Location(p_online.getWorld(),6.5 ,223 ,0-25.5);
+      	  p_online.teleport(spawn);
+      	  p_online.playSound(p_online.getLocation(), Sound.ENTITY_SHULKER_TELEPORT, 1F, 0.5F);
+     } 
 	}
 
 }

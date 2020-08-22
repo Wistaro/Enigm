@@ -42,19 +42,38 @@ public class PointsManager implements CommandExecutor {
 					
 					if(Arrays.asList(teams).contains(selectedTeam)) {
 						
-						updateTeamPointsPoints(selectedTeam, points2set);
+						currentSbHandler.setInternalTeamPoints(selectedTeam, points2set);
 						currentSbHandler.updateScoreboard4All();
+						
 						p.sendMessage("La team "+selectedTeam+" a désormais "+points2set+" points!");
+						
 						
 					}else {
 						p.sendMessage("La team "+selectedTeam+" n'existe pas!");
 					}
 					
 					
-				}else if(args[0].equalsIgnoreCase("reload")) {
+				}else if(args[0].equalsIgnoreCase("reloadsb")) {
 					
 					currentSbHandler.updateScoreboard4All();
 					 Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Le scoreboard a été actualisé par "+p.getDisplayName());
+				
+				}else if(args[0].equalsIgnoreCase("export")) {
+					
+					saveScoreToDatabase();
+					
+					
+				}else if(args[0].equalsIgnoreCase("import")) {
+					
+					importScoreFromDatabase();
+					
+					currentSbHandler.updateScoreboard4All();
+					
+				}else if(args[0].equalsIgnoreCase("reset")) {
+					
+					this.clearAllPoints();
+					Bukkit.broadcastMessage("[DEBUG] Les scores ont été réinitialisés");
+					currentSbHandler.updateScoreboard4All();
 				}
 				
 			}
@@ -64,11 +83,11 @@ public class PointsManager implements CommandExecutor {
 	
 	public void clearAllPoints() {
 		for(String team : teams) {
-			updateTeamPointsPoints(team.toString(), 0);
+			currentSbHandler.setInternalTeamPoints(team.toString(), 0);
 		}
 	}
 	
-	private void updateTeamPointsPoints(String team, int points) {
+	private void updateTeamPointsPointsBdd(String team, int points) {
 		
     	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
     	
@@ -94,6 +113,72 @@ public class PointsManager implements CommandExecutor {
     		}
         	
 	});
+	}
+	
+	public void saveScoreToDatabase() {
+		
+		Bukkit.broadcastMessage("[DEBUG] Sauvegarde des scores en cours....");
+		
+		for(String team : teams) {
+	    		
+	    		switch(team) {
+	        	
+	    		  case "rouge":
+	    			  updateTeamPointsPointsBdd("rouge", currentSbHandler.pointsRouge);
+	    			break;
+	    			
+	    		  case "bleu":
+	    			  updateTeamPointsPointsBdd("bleu", currentSbHandler.pointsBleu);
+	    			
+	    		  case "vert":
+	    			  updateTeamPointsPointsBdd("vert", currentSbHandler.pointsVert);
+	    			break;
+	    			
+	    		  case "jaune":
+	    			  updateTeamPointsPointsBdd("jaune", currentSbHandler.pointsJaune);
+	    			break;
+	    			
+		  		  default:
+		  			
+		  		    break;
+	          	}
+	    		
+		}
+		
+		Bukkit.broadcastMessage("[DEBUG] Sauvegarde des scores terminée!");
+	}
+	
+	private void importScoreFromDatabase() {
+		
+		Bukkit.broadcastMessage("[DEBUG]Importation des scores en cours...");
+		
+		for(String team : teams) {
+			
+			switch(team) {
+        	
+	  		  case "rouge":
+	  			  currentSbHandler.pointsRouge = currentSbHandler.getTeamPointsFromBdd("rouge");
+	  			break;
+	  			
+	  		  case "bleu":
+	  			currentSbHandler.pointsBleu = currentSbHandler.getTeamPointsFromBdd("bleu");
+	  			
+	  		  case "vert":
+	  			currentSbHandler.pointsVert = currentSbHandler.getTeamPointsFromBdd("vert");
+	  			break;
+	  			
+	  		  case "jaune":
+	  			currentSbHandler.pointsJaune = currentSbHandler.getTeamPointsFromBdd("jaune");
+	  			break;
+	  			
+	  		  default:
+	  			
+	  		    break;
+        	}
+			
+		}
+		
+		Bukkit.broadcastMessage("[DEBUG] Les scores ont été importés depuis la base de donnée!");
 	}
 
 }
