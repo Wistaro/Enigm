@@ -58,6 +58,12 @@ public class StartupCounter extends BukkitRunnable {
           	  	cancel();
             }
             
+			/*If the game is stopped during the countdown..*/
+			
+			if(currentGame.enigmMain.isGameStarted == 0) {
+				cancel();
+				currentGame.stopGame();
+			}
             
           	  switch (counter) {
 				case 5:

@@ -44,10 +44,6 @@ public class GameManager implements CommandExecutor {
 		enigmMain = mainClass;
 		currentSbHandler = enigmMain.sbHandler;
 		pointsHandler = pointsManagerClass;
-		
-		gameTimer = new ScoreboardUpdate(this);	 
-		introCounter = new StartupCounter(this);
-		
 		maxSeconds = 10;
 		currentSeconds = 0;
 	}
@@ -56,22 +52,14 @@ public class GameManager implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
 		
 		if(sender instanceof Player) {
-			Player p = (Player)sender;
-			
-			
+			Player p = (Player)sender;		
 			
 			if(cmd.getName().equalsIgnoreCase("estart")) {
 				
 				if(enigmMain.isGameStarted != 1) { //Si la partie n'a pas déjà commencée...
-				
-					/*
-					 * Timer 30sec Done
-					 * Title "bon jeu" etc + effets blindness etc Done
-					 * Tp tout le monde au spawn (co dans message épinglés) Done
-					 * scoreboard qui apparaît Done
-					 * */
 					
-					 
+					introCounter = new StartupCounter(this);
+					
 					enigmMain.isGameStarted = 1;
 					enigmMain.currentChronoAtStartup = 1;
 					currentSbHandler.gameCounterSb = 0;
@@ -95,13 +83,17 @@ public class GameManager implements CommandExecutor {
 			
 			if(cmd.getName().equalsIgnoreCase("epause")) {
 				
+				
 			}
 			if(cmd.getName().equalsIgnoreCase("estop")) {
 				
-				enigmMain.isGameStarted = 0;
-				gameTimeCounter = 0;
-				currentSbHandler.updateScoreboard4All();
-				gameTimer.cancel();
+				if(enigmMain.isGameStarted == 1) {
+					
+					stopGame();
+					
+				}else {
+					p.sendMessage("Impossible de stopper la partie, aucune partie n'est en cours!");
+				}
 				
 			}
 
@@ -120,18 +112,43 @@ public class GameManager implements CommandExecutor {
       } 
 	}
 	
-	public  void initGame() {
+	public void initGame() {
 		
-		introCounter.cancel();
+		gameTimer = new ScoreboardUpdate(this);	 
 		
 		pointsHandler.clearAllPoints();
 		currentSbHandler.updateScoreboard4All();
-		
-		//todo: start general counter (in scoreboard)
 		gameTimeCounter = 0;
 		
 		gameTimer.runTaskTimer(enigmMain, 0, 20);
 		
+	}
+	
+	public void stopGame() {
+		
+		enigmMain.isGameStarted = 0;
+		gameTimeCounter = 0;
+		currentSbHandler.updateScoreboard4All();
+		
+		if(gameTimer != null) { //if th game is stopped BEFORE gameTimer instanciation
+		
+			if(!gameTimer.isCancelled()) {
+				gameTimer.cancel();
+			}
+		
+		}
+		
+		
+		
+		for(Player p_online : Bukkit.getOnlinePlayers()) { //remove all potions effects
+		
+			 for (PotionEffect effect : p_online.getActivePotionEffects()) {
+				 p_online.removePotionEffect(effect.getType());		        
+			 }
+		 
+		}
+		
+		sendTitle2all("§cEnigm", "§cFin de la partie!");
 	}
 	
 	//Teleport all player for starting the game

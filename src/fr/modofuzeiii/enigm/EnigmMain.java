@@ -69,6 +69,7 @@ public class EnigmMain extends JavaPlugin {
 		pointsHandler = new PointsManager(this);
 		gameHandler = new GameManager(this, pointsHandler);
 		
+		sbHandler.updateScoreboard4All(); //refresh sb
 		
 		/*Commandes*/
 		
