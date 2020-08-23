@@ -17,6 +17,7 @@ import fr.modofuzeiii.enigm.commands.PointsManager;
 import fr.modofuzeiii.enigm.commands.TeamManager;
 import fr.modofuzeiii.enigm.database.DatabaseManager;
 import fr.modofuzeiii.enigm.game.GameManager;
+import fr.modofuzeiii.enigm.tasks.ActionBarTask;
 
 @SuppressWarnings("unused")
 public class EnigmMain extends JavaPlugin {
@@ -28,6 +29,8 @@ public class EnigmMain extends JavaPlugin {
 	public TeamManager teamHandler;
 	public PointsManager pointsHandler;
 	public GameManager gameHandler;
+	
+	private ActionBarTask actionBarHandler;
 	
 	/*GameData*/
     
@@ -95,9 +98,13 @@ public class EnigmMain extends JavaPlugin {
 		
 		//String code1 = this.getConfig().getString("gameData.codes.code1");
 		
+		/*Actions bars*/
 		
-        
-  
+	    actionBarHandler = new ActionBarTask();
+	    
+	    
+		actionBarHandler.runTaskTimer(this, 0, 3*20);
+		
 		
 	}
 	
