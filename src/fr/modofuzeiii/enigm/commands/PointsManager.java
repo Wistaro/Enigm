@@ -21,6 +21,7 @@ public class PointsManager implements CommandExecutor {
 	private EnigmMain enigmMain;
 	private ScoreBoardHandler currentSbHandler;
 	private String[] teams;
+	private String pf = ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET;
 	
 	public PointsManager(EnigmMain mainInstance) {
 		
@@ -45,18 +46,18 @@ public class PointsManager implements CommandExecutor {
 						currentSbHandler.setInternalTeamPoints(selectedTeam, points2set);
 						currentSbHandler.updateScoreboard4All();
 						
-						p.sendMessage("La team "+selectedTeam+" a désormais "+points2set+" points!");
+						p.sendMessage(pf+"La team "+selectedTeam+" a désormais "+points2set+" points!");
 						
 						
 					}else {
-						p.sendMessage("La team "+selectedTeam+" n'existe pas!");
+						p.sendMessage(pf+"La team "+selectedTeam+" n'existe pas!");
 					}
 					
 					
 				}else if(args[0].equalsIgnoreCase("reloadsb")) {
 					
 					currentSbHandler.updateScoreboard4All();
-					 Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Le scoreboard a été actualisé par "+p.getDisplayName());
+					 Bukkit.broadcastMessage(pf + "Le scoreboard a été actualisé par "+p.getDisplayName());
 				
 				}else if(args[0].equalsIgnoreCase("export")) {
 					
@@ -72,7 +73,7 @@ public class PointsManager implements CommandExecutor {
 				}else if(args[0].equalsIgnoreCase("reset")) {
 					
 					this.clearAllPoints();
-					Bukkit.broadcastMessage("[DEBUG] Les scores ont été réinitialisés");
+					Bukkit.broadcastMessage("§4§l[DEBUG] §rLes scores ont été réinitialisés");
 					currentSbHandler.updateScoreboard4All();
 				}
 				
@@ -117,7 +118,7 @@ public class PointsManager implements CommandExecutor {
 	
 	public void saveScoreToDatabase() {
 		
-		Bukkit.broadcastMessage("[DEBUG] Sauvegarde des scores en cours....");
+		Bukkit.broadcastMessage("§4§l[DEBUG] §rSauvegarde des scores en cours....");
 		
 		for(String team : teams) {
 	    		
@@ -145,12 +146,12 @@ public class PointsManager implements CommandExecutor {
 	    		
 		}
 		
-		Bukkit.broadcastMessage("[DEBUG] Sauvegarde des scores terminée!");
+		Bukkit.broadcastMessage("§4§l[DEBUG] §rSauvegarde des scores terminée!");
 	}
 	
 	private void importScoreFromDatabase() {
 		
-		Bukkit.broadcastMessage("[DEBUG]Importation des scores en cours...");
+		Bukkit.broadcastMessage("§4§l[DEBUG] §rImportation des scores en cours...");
 		
 		for(String team : teams) {
 			
@@ -178,7 +179,7 @@ public class PointsManager implements CommandExecutor {
 			
 		}
 		
-		Bukkit.broadcastMessage("[DEBUG] Les scores ont été importés depuis la base de donnée!");
+		Bukkit.broadcastMessage("§4§l[DEBUG] §rLes scores ont été importés depuis la base de donnée!");
 	}
 
 }

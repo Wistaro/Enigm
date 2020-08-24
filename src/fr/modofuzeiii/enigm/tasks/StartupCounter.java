@@ -68,7 +68,7 @@ public class StartupCounter extends BukkitRunnable {
           	  switch (counter) {
 				case 5:
 					currentGame.playSound4all(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 2F);
-		      		Bukkit.broadcastMessage(ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET + "Plugin by Wistaro & King L !");
+		      		Bukkit.broadcastMessage("§6§l» §rPlugin by Wistaro & King L !");
 					break;
 				case 6:
 					currentGame.playSound4all(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1.9F);

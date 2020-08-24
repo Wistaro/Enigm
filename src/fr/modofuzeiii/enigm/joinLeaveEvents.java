@@ -42,7 +42,7 @@ public class joinLeaveEvents implements Listener {
 	@EventHandler
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        e.setQuitMessage(prefixMessage + "§r§eLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
+        e.setQuitMessage(prefixMessage + "§rLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
         
         if (e.getPlayer().getName().equalsIgnoreCase("FanaPik")) {
 			e.setQuitMessage(prefixMessage+"La canaille de §lxXF4nAP1KXx §r n'est plus là ! §o(c'est pas trop tôt)");
@@ -115,7 +115,7 @@ public class joinLeaveEvents implements Listener {
 			  
 		 }else if(event.getStatus() == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
 			 event.getPlayer().sendMessage("§6§l» §rTexture pack téléchargé avec succès!");
-			 welcomeSequence( event.getPlayer());
+			 welcomeSequence(event.getPlayer());
 		 }
 	 }
 	 
@@ -141,13 +141,13 @@ public class joinLeaveEvents implements Listener {
 	        	Location lobby = new Location(p.getWorld(),994.5,103,1291.5);
 	        	p.teleport(lobby);
 	        }else {
-	        	p.sendMessage(prefixMessage + "§aLa partie est déjà en cours !");
+	        	p.sendMessage(prefixMessage + "§6§l» §rLa partie est déjà en cours !");
 	        }
 	        /* PlayerTeleportLobby */
 	        
 	        if(p.isOp()) {
 	        	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
-	        	p.setDisplayName("§6§l[GameMaster]§r§6 " + p.getName());
+	        	p.setDisplayName("§6"+p.getName()+"§r");
 	        	Bukkit.broadcastMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r est arrivé!"); //Pour l'égo mdrrr
 	        }else {
 	        	Bukkit.broadcastMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se connecter!");
@@ -179,6 +179,7 @@ public class joinLeaveEvents implements Listener {
 	        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §c§lROUGE§r !");
 	        		    	teamFound = 42;
 	        		    	p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
+	        		    	p.setDisplayName("§c"+p.getName()+"§r");
 	        		    }
 	        		    break;
 	        		    
@@ -187,6 +188,7 @@ public class joinLeaveEvents implements Listener {
 	          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §9§lBLEU§r !");
 	          		    	teamFound = 42;
 	          		    	p.setPlayerListName("§9§l[BLEU]§r§9 " + p.getName());
+	          		    	p.setDisplayName("§9"+p.getName()+"§r");
 	          		    }
 	          		    break;
 	          		    
@@ -195,6 +197,7 @@ public class joinLeaveEvents implements Listener {
 	        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §e§lJAUNE§r !");
 	        		    	teamFound = 42;
 	        		    	p.setPlayerListName("§e§l[JAUNE]§r§e " + p.getName());
+	        		    	p.setDisplayName("§e"+p.getName()+"§r");
 	        		    }
 	        		    break;
 	        		    
@@ -203,42 +206,40 @@ public class joinLeaveEvents implements Listener {
 	          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §2§lVERTE §r!");
 	          		    	teamFound = 42;
 	          		    	p.setPlayerListName("§2§l[VERT]§r§2 " + p.getName());
+	          		    	p.setDisplayName("§2"+p.getName()+"§r");
 	          		    }
 	          		    break;
 	          		    
 
 	        		  default:
 	        			  teamFound = 0;
+	        			  p.setPlayerListName("§8§l[????]§r§7 " + p.getName());
 	        		    
 	        		}
 	        		
 	        		if(teamFound == 0) {
 	      		    	p.sendMessage("§6§l» §rC'est compliqué de te trouver une team...Voyons où il reste de la place...");
 	      		    	p.sendMessage("§6§l» §rPlace non trouvée, vous devenez un simple spectateur!");
+	      		    	p.setPlayerListName("§8§l[????]§r§7 " + p.getName());
 	      		    	p.setGameMode(GameMode.SPECTATOR);
 	      		    }
 	        	}
 	        }else {
 	        switch(playerTeam) {
 	  		  case "rouge":
-	  			p.setDisplayName("§c§l[ROUGE]§r§c " + p.getName());
 	  			p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
 	  			break;
 	  		  case "bleu":
-	  			p.setDisplayName("§9§l[BLEU]§r§9 " + p.getName());
 	  			p.setPlayerListName("§9§l[BLEU]§r§9 " + p.getName());
 	  			break;
 	  		  case "vert":
-	  			p.setDisplayName("§2§l[VERT]§r§2 " + p.getName());
 	  			p.setPlayerListName("§2§l[VERT]§r§2 " + p.getName());
 	  			break;
 	  		  case "jaune":
-	  			p.setDisplayName("§e§l[JAUNE]§r§e " + p.getName());
 	  			p.setPlayerListName("§e§l[JAUNE]§r§e " + p.getName());
 	  			break;
 			  default:
-				  p.setDisplayName("§c§l[????]§r§c " + p.getName());
-				  p.setPlayerListName("§e§l[????]§r§e " + p.getName());
+				  p.setPlayerListName("§8§l[????]§r§7 " + p.getName());
 			    break;
 	        	}
 	        }
