@@ -10,7 +10,71 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.modofuzeiii.enigm.EnigmMain;
+
 public class GameCode implements CommandExecutor {
+	
+	/*
+	 * Récupérer la team du joueur: enigmMain.nmapPlayersTeam.get(p.getUniqueId())
+	 * 
+	 * Récupérer le nombre de points de la team du joueur : enigmMain.sbHandler.getInternalTeamPoints(String team)
+	 * 
+	 * Modifier le nombre de points de la team du joueur : enigmMain.sbHandler.setInternalTeamPoints(String team)
+	 * 
+	 * Récupérer l'état du challenge en cours (aucune épreuve validée = 0): this.getStateChallengeTeam(String team)
+	 * 
+	 * Augmenter de 1 le compteur de challenge de l'équipe : this.increaseChallengeTeam(String team)
+	 */
+	
+	private EnigmMain enigmMain;
+	
+	public GameCode(EnigmMain enigmMain) {
+		this.enigmMain = enigmMain;
+	}
+	
+	private int getStateChallengeTeam(String team) {
+		switch(team) {
+		  case "rouge":
+			  return this.enigmMain.redStateChallenge;
+			
+		  case "bleu":
+			  return this.enigmMain.blueStateChallenge;
+			
+		  case "vert":
+			  return this.enigmMain.greenStateChallenge;
+			
+		  case "jaune":
+			  return this.enigmMain.yellowStateChallenge;
+		
+			
+		  default:
+			  return 0;
+		   
+     	}
+
+	}
+	
+	private void increaseChallengeTeam(String team) {
+		switch(team) {
+		  case "rouge":
+			  enigmMain.redStateChallenge++;
+			break;
+		  case "bleu":
+			  enigmMain.blueStateChallenge++;
+			break;
+		  case "vert":
+			  enigmMain.greenStateChallenge++;
+			break;
+		  case "jaune":
+			  enigmMain.yellowStateChallenge++;
+			break;
+			
+		  default:
+			  
+		    break;
+     	}
+
+	}
 
 	private String pf = "§e§l[§b§lEnigm§e§l] §r";
 	

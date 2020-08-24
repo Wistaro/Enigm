@@ -94,7 +94,7 @@ public class EnigmMain extends JavaPlugin {
 		getCommand("epause").setExecutor(gameHandler);
 		getCommand("pts").setExecutor(new PointsManager(this));
 		getCommand("teams").setExecutor(teamHandler);
-		getCommand("ecode").setExecutor(new GameCode());
+		getCommand("ecode").setExecutor(new GameCode(this));
 		getCommand("playsong").setExecutor(new PlaySong());
 		
 		/*events*/
