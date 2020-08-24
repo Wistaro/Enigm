@@ -45,7 +45,7 @@ public class joinLeaveEvents implements Listener {
 	@EventHandler
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        e.setQuitMessage(prefixMessage + "§rLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
+        e.setQuitMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
         
         if (e.getPlayer().getName().equalsIgnoreCase("FanaPik")) {
 			e.setQuitMessage(prefixMessage+"La canaille de §lxXF4nAP1KXx §r n'est plus là ! §o(c'est pas trop tôt)");
@@ -64,7 +64,7 @@ public class joinLeaveEvents implements Listener {
 	 @EventHandler
 	 public void onResourcepackStatusEvent(PlayerResourcePackStatusEvent event){
 		 if(event.getStatus() == PlayerResourcePackStatusEvent.Status.DECLINED) {
-			  event.getPlayer().kickPlayer("Vous devez accepter le pack de texture de Enigm!!!!!");
+			  event.getPlayer().kickPlayer("§c§lVous devez accepter le pack de texture de Enigm!!!!!");
 			  
 		 }else if(event.getStatus() == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
 			 event.getPlayer().sendMessage("§6§l» §rTexture pack téléchargé avec succès!");

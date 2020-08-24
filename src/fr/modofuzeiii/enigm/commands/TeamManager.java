@@ -56,7 +56,7 @@ public class TeamManager implements CommandExecutor {
 					
 					addPlayerTeam(team2moove, targetPlayer);
 					
-					p.sendMessage("Vous venez d'ajouter le joueur "+psdPlayer+" dans la team "+team2moove);
+					p.sendMessage(pf+"Vous venez d'ajouter le joueur "+psdPlayer+" dans la team "+team2moove);
 
 					
 				}else if(args[0].equalsIgnoreCase("remove")) {
@@ -68,7 +68,7 @@ public class TeamManager implements CommandExecutor {
 					
 					clearUserFromTeam(team2remove, targetPlayer);
 					
-					p.sendMessage("Vous venez de virer le joueur "+psdPlayer+" de la team "+team2remove);
+					p.sendMessage(pf+"Vous venez de virer le joueur "+psdPlayer+" de la team "+team2remove);
 
 				
 			}else {
@@ -289,24 +289,24 @@ public class TeamManager implements CommandExecutor {
 		 
 		 switch(team) {
  		  case "rouge":
- 			p.setDisplayName("§c§l[ROUGE]§r§c " + p.getName());
+ 			p.setDisplayName("§c"+ p.getName()+"§r");
  			p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
  			break;
  		  case "bleu":
- 			p.setDisplayName("§9§l[BLEU]§r§9 " + p.getName());
+ 			p.setDisplayName("§9"+ p.getName()+"§r");
  			p.setPlayerListName("§9§l[BLEU]§r§9 " + p.getName());
  			break;
  		  case "vert":
- 			p.setDisplayName("§2§l[VERT]§r§2 " + p.getName());
+ 			p.setDisplayName("§2"+ p.getName()+"§r");
  			p.setPlayerListName("§2§l[VERT]§r§2 " + p.getName());
  			break;
  		  case "jaune":
- 			p.setDisplayName("§e§l[JAUNE]§r§e " + p.getName());
+ 			p.setDisplayName("§e"+ p.getName()+"§r");
  			p.setPlayerListName("§e§l[JAUNE]§r§e " + p.getName());
  			break;
  		
  		  case "gameMaster":
- 			p.setDisplayName("§6§l[GameMaster]§r§6 " + p.getName());
+ 			p.setDisplayName("§6"+ p.getName()+"§r");
  			p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
  			break;
  			
@@ -316,8 +316,8 @@ public class TeamManager implements CommandExecutor {
  			break;
  			
 		  default:
-			  p.setDisplayName("§c§l[????]§r§c " + p.getName());
-			  p.setPlayerListName("§e§l[????]§r§e " + p.getName());
+			  p.setDisplayName("§8" + p.getName()+"§r");
+			  p.setPlayerListName("§8§l[????]§r§8 " + p.getName());
 		    break;
        	}
 	 }
