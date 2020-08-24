@@ -125,8 +125,6 @@ public class EnigmMain extends JavaPlugin {
 		bootstaskhandler.runTaskTimer(this, 0, 2*20);
 		
 		
-
-		
 	}
 	
     @Override

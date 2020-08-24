@@ -160,9 +160,10 @@ public class ScoreBoardHandler implements Listener {
 		return -1;
     }
     
-    private int getInternalTeamPoints(String team) {
+    public int getInternalTeamPoints(String team) {
     	
     	int output;
+    	
     	
     	if(isTeamExists(team)) {
     		
@@ -189,7 +190,7 @@ public class ScoreBoardHandler implements Listener {
 	  		    break;
           	}
     	}else {
-    		output = -99;
+    		output = 0;
     	}
     	
     	return output;

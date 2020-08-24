@@ -306,7 +306,7 @@ public class TeamManager implements CommandExecutor {
  			break;
  		
  		  case "gameMaster":
- 			p.setDisplayName("§6"+ p.getName()+"§r");
+ 			p.setDisplayName("§6§l"+ p.getName()+"§r§l");
  			p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
  			break;
  			

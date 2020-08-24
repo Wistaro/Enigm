@@ -181,5 +181,7 @@ public class PointsManager implements CommandExecutor {
 		
 		Bukkit.broadcastMessage("§4§l[DEBUG] §rLes scores ont été importés depuis la base de donnée!");
 	}
+	
+	
 
 }
