@@ -74,7 +74,7 @@ public class GameManager implements CommandExecutor {
 						startIntroSequence();
 					}
 				}else {
-					p.sendMessage("Impossible de démarrer la partie, celle -ci est déjà en cours!");
+					p.sendMessage("§6§l» §rImpossible de démarrer la partie, celle-ci est déjà en cours!");
 				}
 			}
 			
@@ -90,7 +90,7 @@ public class GameManager implements CommandExecutor {
 					stopGame();
 					
 				}else {
-					p.sendMessage("Impossible de stopper la partie, aucune partie n'est en cours!");
+					p.sendMessage("§6§l» §rImpossible de stopper la partie, aucune partie n'est en cours!");
 				}
 				
 			}

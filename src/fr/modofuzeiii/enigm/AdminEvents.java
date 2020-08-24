@@ -29,7 +29,8 @@ public class AdminEvents implements Listener {
 	public void OnItemClick(PlayerInteractEvent ev){ //LES ITEMS DANS LA MAIN
 		Player p = ev.getPlayer();
 		ItemStack clickItem = p.getInventory().getItemInMainHand();
-
+		
+	  if(clickItem.getType()!=null) {
 		
 		if(clickItem.getType() == Material.COMPASS && clickItem.hasItemMeta() && clickItem.getItemMeta().hasDisplayName() && clickItem.getItemMeta().getDisplayName().equalsIgnoreCase("§6Teleporter")) {
 			p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 10, 1F);
@@ -47,6 +48,10 @@ public class AdminEvents implements Listener {
 			p.playSound(p.getLocation(), Sound.BLOCK_ENDER_CHEST_OPEN, 1, 1F);
 			new AdminMalusBonusGui(p);
 		}
+	  }
+	  else {
+		  return;
+	  }
 	} //Fin PlayerInteractEvent
 	
 	
@@ -55,8 +60,8 @@ public class AdminEvents implements Listener {
 		e.getInventory();
 		Player p = (Player) e.getWhoClicked();
 		ItemStack current = e.getCurrentItem();
-		if(current == null) return;
 		
+	  if(current != null) {
 		if (current.getType() == Material.GREEN_STAINED_GLASS_PANE && current.getItemMeta().getDisplayName().equalsIgnoreCase("§a§l§oBONUS")) {
 			p.closeInventory();
 			new AdminBonusGui(p);
@@ -103,6 +108,10 @@ public class AdminEvents implements Listener {
 			effect = effect + 6;
 			new AdminApplyGui(p);
 		}
+	  }
+	  else {
+		  return;
+	  }
 	}//FIN ITEMS DANS LES GUI
 	
 	

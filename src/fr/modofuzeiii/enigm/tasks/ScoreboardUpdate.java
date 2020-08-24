@@ -1,6 +1,5 @@
 package fr.modofuzeiii.enigm.tasks;
 
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.modofuzeiii.enigm.game.GameManager;
@@ -26,8 +25,5 @@ public class ScoreboardUpdate extends BukkitRunnable {
 		}else if(currentGame.enigmMain.isGameStarted == 0){
 			cancel();
 		}
-		
-		
 	}
-
 }

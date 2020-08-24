@@ -16,6 +16,7 @@ import fr.modofuzeiii.enigm.commands.HelpEnigmPlugin;
 import fr.modofuzeiii.enigm.commands.PointsManager;
 import fr.modofuzeiii.enigm.commands.TeamManager;
 import fr.modofuzeiii.enigm.database.DatabaseManager;
+import fr.modofuzeiii.enigm.game.GameCode;
 import fr.modofuzeiii.enigm.game.GameManager;
 import fr.modofuzeiii.enigm.tasks.ActionBarTask;
 
@@ -85,6 +86,7 @@ public class EnigmMain extends JavaPlugin {
 		getCommand("epause").setExecutor(gameHandler);
 		getCommand("pts").setExecutor(new PointsManager(this));
 		getCommand("teams").setExecutor(teamHandler);
+		getCommand("ecode").setExecutor(new GameCode());
 		
 		/*events*/
 		getServer().getPluginManager().registerEvents(new AdminEvents(), this);

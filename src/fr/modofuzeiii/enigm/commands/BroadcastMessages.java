@@ -18,7 +18,7 @@ public class BroadcastMessages implements CommandExecutor {
 			
 			if(cmd.getName().equalsIgnoreCase("a")) {
 				if(args.length == 0){
-					p.sendMessage("§c[Erreur]" + ChatColor.RESET +" La commande est : /a <message>");
+					p.sendMessage("§6§l» §rErreur ! La commande est : /a <message>");
 				}
 				
 				if(args.length >= 1) {	 

@@ -11,11 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import fr.modofuzeiii.enigm.database.DBConnection;
-import net.md_5.bungee.api.ChatColor;
 
 public class ScoreBoardHandler implements Listener {
 	
