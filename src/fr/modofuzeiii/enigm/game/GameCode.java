@@ -79,7 +79,7 @@ public class GameCode implements CommandExecutor {
 		ItemStack pose = new ItemStack(Material.DIAMOND_BOOTS);
 		ItemMeta poseM = pose.getItemMeta();
 		poseM.setDisplayName("§c§k§l||| §e§l§oPoséidon §c§k§l|||");
-		poseM.addEnchant(Enchantment.DEPTH_STRIDER, 3, true);
+		poseM.addEnchant(Enchantment.DEPTH_STRIDER, 1, true);
 		pose.setItemMeta(poseM);
 		p.getInventory().setItem(7, pose);
 		p.updateInventory();
