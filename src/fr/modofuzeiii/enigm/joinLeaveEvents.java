@@ -45,7 +45,7 @@ public class joinLeaveEvents implements Listener {
 	@EventHandler
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        e.setQuitMessage(prefixMessage + "§r§eLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
+        e.setQuitMessage(prefixMessage + "§rLe joueur " + "§e§l" + p.getName() + "§r vient de se déconnecter!");
         
         if (e.getPlayer().getName().equalsIgnoreCase("FanaPik")) {
 			e.setQuitMessage(prefixMessage+"La canaille de §lxXF4nAP1KXx §r n'est plus là ! §o(c'est pas trop tôt)");
@@ -68,7 +68,7 @@ public class joinLeaveEvents implements Listener {
 			  
 		 }else if(event.getStatus() == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
 			 event.getPlayer().sendMessage("§6§l» §rTexture pack téléchargé avec succès!");
-			 welcomeSequence( event.getPlayer());
+			 welcomeSequence(event.getPlayer());
 		 }
 	 }
 	 
@@ -95,16 +95,14 @@ public class joinLeaveEvents implements Listener {
 	        	Location lobby = new Location(p.getWorld(),994.5,103,1291.5);
 	        	p.teleport(lobby);
 	        }else {
-	        	p.sendMessage(prefixMessage + "§aLa partie est déjà en cours !");
+	        	p.sendMessage(prefixMessage + "§6§l» §rLa partie est déjà en cours !");
 	        }
 	        /* PlayerTeleportLobby */
 	        
 	        if(p.isOp()) {
-	        	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
-	        	p.setDisplayName("§6§l[GameMaster]§r§6 " + p.getName());
 	        			
 	        	teamHandler.addPlayerTeam("gameMaster", p);
-	        	
+
 	        	Bukkit.broadcastMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r est arrivé!"); //Pour l'égo mdrrr
 	        }else {
 	        	Bukkit.broadcastMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se connecter!");
@@ -136,10 +134,12 @@ public class joinLeaveEvents implements Listener {
 	        		    if(redPlayers < maxPerTeam) {
 	        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §c§lROUGE§r !");
 	        		    	teamFound = 42;
+
 	        		    	teamHandler.addColorPlayerTeam("rouge", p);
 	        		    	
 	        		    	
 	        		    	teamHandler.addPlayerTeam("rouge", p);
+
 	        		    }
 	        		    break;
 	        		    
@@ -147,6 +147,7 @@ public class joinLeaveEvents implements Listener {
 	          		    if(bluePlayers < maxPerTeam) {
 	          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §9§lBLEU§r !");
 	          		    	teamFound = 42;
+
 	          		    	teamHandler.addColorPlayerTeam("bleu", p);
 	          		    	
 	          		    	
@@ -158,9 +159,11 @@ public class joinLeaveEvents implements Listener {
 	        		    if(yellowPlayers < maxPerTeam) {
 	        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §e§lJAUNE§r !");
 	        		    	teamFound = 42;
+
 	        		    	teamHandler.addColorPlayerTeam("jaune", p);
 	        		    	
 	        		    	teamHandler.addPlayerTeam("jaune", p);
+
 	        		    }
 	        		    break;
 	        		    
@@ -168,21 +171,25 @@ public class joinLeaveEvents implements Listener {
 	          		    if(greenPlayers < maxPerTeam) {
 	          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §2§lVERTE §r!");
 	          		    	teamFound = 42;
+
 	          		    	teamHandler.addColorPlayerTeam("vert", p);
 	          		    	
 	          		    	teamHandler.addPlayerTeam("vert", p);
+
 	          		    }
 	          		    break;
 	          		    
 
 	        		  default:
 	        			  teamFound = 0;
+	        			  p.setPlayerListName("§8§l[????]§r§7 " + p.getName());
 	        		    
 	        		}
 	        		
 	        		if(teamFound == 0) {
 	      		    	p.sendMessage("§6§l» §rC'est compliqué de te trouver une team...Voyons où il reste de la place...");
 	      		    	p.sendMessage("§6§l» §rPlace non trouvée, vous devenez un simple spectateur!");
+	      		    	p.setPlayerListName("§8§l[????]§r§7 " + p.getName());
 	      		    	p.setGameMode(GameMode.SPECTATOR);
 	      		    }
 	        	}
@@ -190,8 +197,10 @@ public class joinLeaveEvents implements Listener {
 	        	 
 	        	 
 	        }else {
+
 	        	
 	        teamHandler.addColorPlayerTeam(currentPlayerTeam, p);
+
 	        }
 		}
 	 }

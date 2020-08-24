@@ -23,7 +23,7 @@ public class AdminCommands implements CommandExecutor {
 				 * */
 				if(r == 1) {
 					p.getInventory().clear();
-					p.sendMessage("§e§l[§b§lEnigm§e§l]§r GameMaster mode : §cOff");
+					p.sendMessage("§e§l[§b§lEnigm§e§l]§r GameMaster mode : §c§lOff");
 				    p.playSound(p.getLocation(), Sound.BLOCK_ENDER_CHEST_CLOSE, 1, 1F);
 					r = 0;
 				}
@@ -57,7 +57,7 @@ public class AdminCommands implements CommandExecutor {
 				 
 				 /* EGM MODE ON
 				  * */
-			     p.sendMessage("§e§l[§b§lEnigm§e§l]§r GameMaster mode : §aOn");
+			     p.sendMessage("§e§l[§b§lEnigm§e§l]§r GameMaster mode : §a§lOn");
 			     p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 0.5F);
 			     r++;
 				}

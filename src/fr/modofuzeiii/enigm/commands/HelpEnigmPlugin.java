@@ -53,16 +53,16 @@ public class HelpEnigmPlugin implements CommandExecutor {
 						p.sendMessage("§6---------------------------------");	
 						e++;
 					}
-					else {
-						p.sendMessage("Erreur : Commande inconnue !");
-					}
+				}
+				if(args.length == 1) {
+					p.sendMessage("§6§l» §rErreur : Commande inconnue !");
 				}
 			}
 		
 			
 			if(cmd.getName().equalsIgnoreCase("etest")) {
 				if(args.length == 0) {
-					p.sendMessage("Le plugin fonctionne correctement !");
+					p.sendMessage("§6§l» §rLe plugin fonctionne correctement !");
 					System.out.println("Le plugin fonctionne correctement !");
 				}
 			}

@@ -18,6 +18,7 @@ public class ActionBarTask extends BukkitRunnable {
 
 	@Override
 	public void run() {
+
 		sendActionBarAllPlayers("§c§l Votre équipe: §r ");
 
 	}

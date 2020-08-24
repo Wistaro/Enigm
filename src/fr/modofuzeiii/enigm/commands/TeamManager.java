@@ -25,6 +25,7 @@ public class TeamManager implements CommandExecutor {
 	private EnigmMain enigmMain;
 	private ScoreBoardHandler currentSbHandler;
 	private String[] teams;
+	private String pf = ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET;
 	
 	public TeamManager(EnigmMain mainInstance) {
 		
@@ -44,7 +45,7 @@ public class TeamManager implements CommandExecutor {
 					String team2clear = args[1].toString();
 					clearTeam(team2clear);
 					
-					p.sendMessage("Vous venez de vider l'équipe "+team2clear);		
+					p.sendMessage(pf+"Vous venez de vider l'équipe "+team2clear);		
 					
 				}else if(args[0].equalsIgnoreCase("add")) {
 					
@@ -56,6 +57,7 @@ public class TeamManager implements CommandExecutor {
 					addPlayerTeam(team2moove, targetPlayer);
 					
 					p.sendMessage("Vous venez d'ajouter le joueur "+psdPlayer+" dans la team "+team2moove);
+
 					
 				}else if(args[0].equalsIgnoreCase("remove")) {
 					
@@ -67,6 +69,7 @@ public class TeamManager implements CommandExecutor {
 					clearUserFromTeam(team2remove, targetPlayer);
 					
 					p.sendMessage("Vous venez de virer le joueur "+psdPlayer+" de la team "+team2remove);
+
 				
 			}else {
 				return false;
