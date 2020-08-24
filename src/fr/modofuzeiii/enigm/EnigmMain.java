@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +15,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import fr.modofuzeiii.enigm.commands.AdminCommands;
 import fr.modofuzeiii.enigm.commands.BroadcastMessages;
 import fr.modofuzeiii.enigm.commands.HelpEnigmPlugin;
+import fr.modofuzeiii.enigm.commands.PlaySong;
 import fr.modofuzeiii.enigm.commands.PointsManager;
 import fr.modofuzeiii.enigm.commands.TeamManager;
 import fr.modofuzeiii.enigm.database.DatabaseManager;
@@ -30,6 +33,7 @@ public class EnigmMain extends JavaPlugin {
 	public TeamManager teamHandler;
 	public PointsManager pointsHandler;
 	public GameManager gameHandler;
+	public String playerTeam;
 	
 	private ActionBarTask actionBarHandler;
 	
@@ -41,6 +45,8 @@ public class EnigmMain extends JavaPlugin {
 	  public  int greenStateChallenge;
 	  public  int yellowStateChallenge;
 	  public  int blueStateChallenge;
+	  
+	  public HashMap<UUID, String> mapPlayersTeam;
 	
 	@Override
 	public void onEnable() {
@@ -87,10 +93,11 @@ public class EnigmMain extends JavaPlugin {
 		getCommand("pts").setExecutor(new PointsManager(this));
 		getCommand("teams").setExecutor(teamHandler);
 		getCommand("ecode").setExecutor(new GameCode());
+		getCommand("playsong").setExecutor(new PlaySong());
 		
 		/*events*/
 		getServer().getPluginManager().registerEvents(new AdminEvents(), this);
-		getServer().getPluginManager().registerEvents(new joinLeaveEvents(this), this);
+		getServer().getPluginManager().registerEvents(new joinLeaveEvents(this, teamHandler), this);
 		
 		/*Database handler*/
 		
@@ -102,10 +109,14 @@ public class EnigmMain extends JavaPlugin {
 		
 		/*Actions bars*/
 		
-	    actionBarHandler = new ActionBarTask();
+	    actionBarHandler = new ActionBarTask(this);
 	    
 	    
 		actionBarHandler.runTaskTimer(this, 0, 3*20);
+		
+		mapPlayersTeam = new HashMap<UUID, String>();
+		
+		teamHandler.loadTeamsIntoHashMap();
 		
 		
 	}

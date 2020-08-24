@@ -37,4 +37,7 @@ commands:
     reloadPlayer:
         description: Code Command
         permission: ecode.use
+    playsong:
+        description: Play a song for all
+        permission: playsong.use
         

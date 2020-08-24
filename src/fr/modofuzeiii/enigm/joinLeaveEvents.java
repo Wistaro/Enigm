@@ -18,18 +18,21 @@ import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import fr.modofuzeiii.enigm.commands.TeamManager;
 import fr.modofuzeiii.enigm.database.DBConnection;
 
 public class joinLeaveEvents implements Listener {
 	
 	private EnigmMain enigmMain;
 	private ScoreBoardHandler currentSbHandler;
+	private TeamManager teamHandler;
 	private String prefixMessage = ChatColor.YELLOW + "§l[" + ChatColor.AQUA + "§lEnigm" + ChatColor.YELLOW + "§l] " + ChatColor.RESET;
 
 	
-	public joinLeaveEvents(EnigmMain mainInstance) {
+	public joinLeaveEvents(EnigmMain mainInstance, TeamManager teamInstance) {
 		enigmMain = mainInstance;
 		currentSbHandler = enigmMain.sbHandler;
+		this.teamHandler = teamInstance;
 	}
 	
 	@EventHandler
@@ -56,57 +59,7 @@ public class joinLeaveEvents implements Listener {
         }
     }
 	
-    private String getPlayerTeam(Player p) {
-    	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
-    		   		
-        	try {
-    			final Connection connection = enigmEventConnection.getConnection();
-    			
-    			final PreparedStatement preparedStatement = connection.prepareStatement("SELECT team FROM players WHERE uuid = ?");
-    			
-    			preparedStatement.setString(1,p.getUniqueId().toString());
-    			
-    			final ResultSet result = preparedStatement.executeQuery();
-    			
-    			if(result.next()) {
-    				return result.getString("team");
-    			
-    			}else {
-    				return "0";
-    			}
-    			
-    		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-		return "0";
-    }
     
-    private int getNbPlayersInTeam(String team) {
-    	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
-    		   		
-        	try {
-    			final Connection connection = enigmEventConnection.getConnection();
-    			
-    			final PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(ID) as nbTeam FROM players WHERE team = ?");
-    			
-    			preparedStatement.setString(1,team.toString());
-    			
-    			final ResultSet result = preparedStatement.executeQuery();
-    			
-    			if(result.next()) {
-    				return result.getInt("nbTeam");
-    			
-    			}else {
-    				return 0;
-    			}
-    			
-    		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-		return -1;
-    }
     
 	 @EventHandler
 	 public void onResourcepackStatusEvent(PlayerResourcePackStatusEvent event){
@@ -120,7 +73,8 @@ public class joinLeaveEvents implements Listener {
 	 }
 	 
 	 private void welcomeSequence(Player p) {
-		 	p.chat("/playsound minecraft:enigm.welcome master "+p.getName());
+		 
+		 	p.playSound(p.getLocation(), "enigm.welcome" , 1F, 1F);
 		 	
 	        /* Petit Troll :p */
 	        if (p.getName().equalsIgnoreCase("FanaPik")) {
@@ -148,22 +102,26 @@ public class joinLeaveEvents implements Listener {
 	        if(p.isOp()) {
 	        	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
 	        	p.setDisplayName("§6§l[GameMaster]§r§6 " + p.getName());
+	        			
+	        	teamHandler.addPlayerTeam("gameMaster", p);
+	        	
 	        	Bukkit.broadcastMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r est arrivé!"); //Pour l'égo mdrrr
 	        }else {
 	        	Bukkit.broadcastMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se connecter!");
 	        	
 	        	
 	        /*Check if player is in a team*/
-	        String playerTeam = getPlayerTeam(p);
+	        	
+	        String currentPlayerTeam = teamHandler.getPlayerTeam(p);
 	        
-	        if (playerTeam.equalsIgnoreCase("0")) {
+	        if (currentPlayerTeam.equalsIgnoreCase("0")) {
 	        	p.sendMessage("§6§l» §rOh oh! Vous n'avez pas de team! ");
 	        	p.sendMessage("§6§l» §rLaissons le hasard vous trouver une équipe... ");
 	        	
-	        	int redPlayers = getNbPlayersInTeam("rouge");
-	        	int bluePlayers = getNbPlayersInTeam("bleu");
-	        	int yellowPlayers = getNbPlayersInTeam("jaune");
-	        	int greenPlayers = getNbPlayersInTeam("vert");
+	        	int redPlayers = teamHandler.getNbPlayersInTeam("rouge");
+	        	int bluePlayers = teamHandler.getNbPlayersInTeam("bleu");
+	        	int yellowPlayers = teamHandler.getNbPlayersInTeam("jaune");
+	        	int greenPlayers = teamHandler.getNbPlayersInTeam("vert");
 	        	
 	        	int maxPerTeam = enigmMain.getConfig().getInt("gameData.teams.maxPerTeam");
 	        	
@@ -178,7 +136,10 @@ public class joinLeaveEvents implements Listener {
 	        		    if(redPlayers < maxPerTeam) {
 	        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §c§lROUGE§r !");
 	        		    	teamFound = 42;
-	        		    	p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
+	        		    	teamHandler.addColorPlayerTeam("rouge", p);
+	        		    	
+	        		    	
+	        		    	teamHandler.addPlayerTeam("rouge", p);
 	        		    }
 	        		    break;
 	        		    
@@ -186,7 +147,10 @@ public class joinLeaveEvents implements Listener {
 	          		    if(bluePlayers < maxPerTeam) {
 	          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §9§lBLEU§r !");
 	          		    	teamFound = 42;
-	          		    	p.setPlayerListName("§9§l[BLEU]§r§9 " + p.getName());
+	          		    	teamHandler.addColorPlayerTeam("bleu", p);
+	          		    	
+	          		    	
+	          		    	teamHandler.addPlayerTeam("bleu", p);
 	          		    }
 	          		    break;
 	          		    
@@ -194,7 +158,9 @@ public class joinLeaveEvents implements Listener {
 	        		    if(yellowPlayers < maxPerTeam) {
 	        		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §e§lJAUNE§r !");
 	        		    	teamFound = 42;
-	        		    	p.setPlayerListName("§e§l[JAUNE]§r§e " + p.getName());
+	        		    	teamHandler.addColorPlayerTeam("jaune", p);
+	        		    	
+	        		    	teamHandler.addPlayerTeam("jaune", p);
 	        		    }
 	        		    break;
 	        		    
@@ -202,7 +168,9 @@ public class joinLeaveEvents implements Listener {
 	          		    if(greenPlayers < maxPerTeam) {
 	          		    	Bukkit.broadcastMessage("§6§l» §rLe joueur §e§l"+p.getDisplayName()+"§r rejoint la team §2§lVERTE §r!");
 	          		    	teamFound = 42;
-	          		    	p.setPlayerListName("§2§l[VERT]§r§2 " + p.getName());
+	          		    	teamHandler.addColorPlayerTeam("vert", p);
+	          		    	
+	          		    	teamHandler.addPlayerTeam("vert", p);
 	          		    }
 	          		    break;
 	          		    
@@ -218,30 +186,15 @@ public class joinLeaveEvents implements Listener {
 	      		    	p.setGameMode(GameMode.SPECTATOR);
 	      		    }
 	        	}
+	        	
+	        	 
+	        	 
 	        }else {
-	        switch(playerTeam) {
-	  		  case "rouge":
-	  			p.setDisplayName("§c§l[ROUGE]§r§c " + p.getName());
-	  			p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
-	  			break;
-	  		  case "bleu":
-	  			p.setDisplayName("§9§l[BLEU]§r§9 " + p.getName());
-	  			p.setPlayerListName("§9§l[BLEU]§r§9 " + p.getName());
-	  			break;
-	  		  case "vert":
-	  			p.setDisplayName("§2§l[VERT]§r§2 " + p.getName());
-	  			p.setPlayerListName("§2§l[VERT]§r§2 " + p.getName());
-	  			break;
-	  		  case "jaune":
-	  			p.setDisplayName("§e§l[JAUNE]§r§e " + p.getName());
-	  			p.setPlayerListName("§e§l[JAUNE]§r§e " + p.getName());
-	  			break;
-			  default:
-				  p.setDisplayName("§c§l[????]§r§c " + p.getName());
-				  p.setPlayerListName("§e§l[????]§r§e " + p.getName());
-			    break;
-	        	}
+	        	
+	        teamHandler.addColorPlayerTeam(currentPlayerTeam, p);
 	        }
 		}
 	 }
+	 
+
 }
