@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,9 +17,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
 import fr.modofuzeiii.enigm.database.DBConnection;
-import fr.modofuzeiii.enigm.tasks.ActionBarTask;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 
 public class joinLeaveEvents implements Listener {
 	
@@ -35,11 +31,11 @@ public class joinLeaveEvents implements Listener {
 	}
 	
 	@EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
-        e.setJoinMessage(""); //cancel legacy join message
-        
-    }
+	public void onJoin(PlayerJoinEvent e) {
+		@SuppressWarnings("unused")
+		Player p = e.getPlayer();
+		e.setJoinMessage("");
+	}
 	
 	@EventHandler
     public void onLeave(PlayerQuitEvent e) {
@@ -58,14 +54,10 @@ public class joinLeaveEvents implements Listener {
         }
     }
 	
-	
-	
     private String getPlayerTeam(Player p) {
-    	
     	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
     		   		
         	try {
-        		
     			final Connection connection = enigmEventConnection.getConnection();
     			
     			final PreparedStatement preparedStatement = connection.prepareStatement("SELECT team FROM players WHERE uuid = ?");
@@ -75,7 +67,6 @@ public class joinLeaveEvents implements Listener {
     			final ResultSet result = preparedStatement.executeQuery();
     			
     			if(result.next()) {
-    				
     				return result.getString("team");
     			
     			}else {
@@ -86,17 +77,13 @@ public class joinLeaveEvents implements Listener {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-    	
- 
 		return "0";
     }
     
- private int getNbPlayersInTeam(String team) {
-    	
+    private int getNbPlayersInTeam(String team) {
     	final DBConnection enigmEventConnection = enigmMain.getDatabaseManager().getEnigmConnection();
     		   		
         	try {
-        		
     			final Connection connection = enigmEventConnection.getConnection();
     			
     			final PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(ID) as nbTeam FROM players WHERE team = ?");
@@ -106,7 +93,6 @@ public class joinLeaveEvents implements Listener {
     			final ResultSet result = preparedStatement.executeQuery();
     			
     			if(result.next()) {
-    				
     				return result.getInt("nbTeam");
     			
     			}else {
@@ -117,36 +103,23 @@ public class joinLeaveEvents implements Listener {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-    	
- 
 		return -1;
     }
     
 	 @EventHandler
 	 public void onResourcepackStatusEvent(PlayerResourcePackStatusEvent event){
-		 
 		 if(event.getStatus() == PlayerResourcePackStatusEvent.Status.DECLINED) {
-			 
 			  event.getPlayer().kickPlayer("Vous devez accepter le pack de texture de Enigm!!!!!");
 			  
 		 }else if(event.getStatus() == PlayerResourcePackStatusEvent.Status.SUCCESSFULLY_LOADED) {
-			 
-			 event.getPlayer().sendMessage("Texture pack téléchargé avec succès!");
-			 
+			 event.getPlayer().sendMessage("§6§l» §rTexture pack téléchargé avec succès!");
 			 welcomeSequence( event.getPlayer());
-			 
 		 }
-	
 	 }
 	 
 	 private void welcomeSequence(Player p) {
-		 
-
-		    
 		 	p.chat("/playsound minecraft:enigm.welcome master "+p.getName());
 		 	
-		 	
-	        
 	        /* Petit Troll :p */
 	        if (p.getName().equalsIgnoreCase("FanaPik")) {
 	        	Bukkit.broadcastMessage(prefixMessage+"Le vil §lFanaPik §rde la plèbasse est §o(malheureusement) §rlà !");
@@ -154,9 +127,12 @@ public class joinLeaveEvents implements Listener {
 	        if (p.getName().equalsIgnoreCase("Sinaynomis")) {
 	        	Bukkit.broadcastMessage(prefixMessage+"§lSinaynomis §raka la perte de mémoire fréquente (KingL orga aussi l'event) est là !");
 			}
+	        /* Fin Troll */
+	        
 	        
 	        currentSbHandler.updateSb(p);
 	        TitleAPI.sendTitle(p, 10, 20, 10, "§cHey, "+p.getDisplayName()+"!", "Bienvenue sur Enigm!");
+	        
 	        
 	        /* PlayerTeleportLobby */
 	        if(enigmMain.isGameStarted == 0) {
@@ -167,14 +143,14 @@ public class joinLeaveEvents implements Listener {
 	        }
 	        /* PlayerTeleportLobby */
 	        
-	        
 	        if(p.isOp()) {
 	        	p.setPlayerListName("§6§l[GameMaster]§r§6 " + p.getName());
 	        	p.setDisplayName("§6§l[GameMaster]§r§6 " + p.getName());
 	        	Bukkit.broadcastMessage(prefixMessage + "Le maître §6§l" + p.getName()+ "§r est arrivé!"); //Pour l'égo mdrrr
 	        }else {
-	        
 	        	Bukkit.broadcastMessage(prefixMessage + "Le joueur " + "§e§l" + p.getName() + "§r vient de se connecter!");
+	        	
+	        	
 	        /*Check if player is in a team*/
 	        String playerTeam = getPlayerTeam(p);
 	        
@@ -239,19 +215,9 @@ public class joinLeaveEvents implements Listener {
 	      		    	p.sendMessage("§6§l» §rPlace non trouvée, vous devenez un simple spectateur!");
 	      		    	p.setGameMode(GameMode.SPECTATOR);
 	      		    }
-	        		
-	        		
-	        		
-	        		
 	        	}
-	        	
-	        	
-	        	
 	        }else {
-	        	
-	        	
-	        	switch(playerTeam) {
-	        	
+	        switch(playerTeam) {
 	  		  case "rouge":
 	  			p.setDisplayName("§c§l[ROUGE]§r§c " + p.getName());
 	  			p.setPlayerListName("§c§l[ROUGE]§r§c " + p.getName());
@@ -273,12 +239,7 @@ public class joinLeaveEvents implements Listener {
 				  p.setPlayerListName("§e§l[????]§r§e " + p.getName());
 			    break;
 	        	}
-	        	
-	        	
 	        }
-	        
 		}
 	 }
-	 
-	 
 }
