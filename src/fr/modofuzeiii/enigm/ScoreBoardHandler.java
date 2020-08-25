@@ -104,14 +104,14 @@ public class ScoreBoardHandler implements Listener {
 			
 			o.setDisplayName("§lEnigm v0.1");
 	        o.setDisplaySlot(DisplaySlot.SIDEBAR);
+	        o.getScore(espace+"--- ").setScore(8);
+	        o.getScore("  ").setScore(7);
+	        o.getScore("§6§l» §cEn attente...").setScore(6);
+	        o.getScore("   ").setScore(4);
+	        o.getScore("§6§l» §e§l"+p.getName()).setScore(3);
+	        o.getScore(" ").setScore(2);
+	        o.getScore(espace + "---").setScore(1);
 	        
-	        o.getScore(espace + " ").setScore(9);
-	        
-	        o.getScore("").setScore(8);
-	        o.getScore("Enigm n'a pas encoré démarré!").setScore(7);
-	        o.getScore("[INFO] qsldkq,dlk,").setScore(5);
-	        
-			
 		}
 	        
 	      currentPlayer.setScoreboard(currentSb);

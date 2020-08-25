@@ -1,6 +1,7 @@
 package fr.modofuzeiii.enigm.game;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -234,9 +235,8 @@ public class GameCode implements CommandExecutor {
 		
 		for(Player p_online : Bukkit.getOnlinePlayers()) {
 			
-			 TitleAPI.sendTitle(p_online, 10, 20, 10, "L'équipe "+team, "s'est échappée de Enigm!");
-			 p_online.playSound(p_online.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1F, 1F);
-			 p_online.playSound(p_online.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1F, 1F);
+			 TitleAPI.sendTitle(p_online, 10, 20, 10, "§aL'équipe §r"+team, "§c§ls'est échappée de Enigm!");
+			 p_online.playSound(p_online.getLocation(), Sound.ENTITY_WITHER_DEATH, 1F, 0.7F);
 		} 
 		
 		Bukkit.broadcastMessage("COUNT : "+scoreComplet);
@@ -251,10 +251,12 @@ public class GameCode implements CommandExecutor {
 			}
 			
 			for(Player p_online : Bukkit.getOnlinePlayers()) {
-				 TitleAPI.sendTitle(p_online, 10, 20, 10, "Toutes les équipes", "se sont échappées!");
+				Location Podium = new Location(p.getWorld(),26.5,234,3.5);
+				TitleAPI.sendTitle(p_online, 10, 20, 10, "§cToutes les équipes", "§a§lse sont échappées!");
+				p_online.teleport(Podium);
+				/*INSERT FINAL SOUND HERE !!!!*/
 			} 
 		}
-		
 	}
 	private void Excalibur(Player p) {
 		ItemStack exca = new ItemStack(Material.DIAMOND_SWORD);
