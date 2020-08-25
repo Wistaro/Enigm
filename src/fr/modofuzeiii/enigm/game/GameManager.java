@@ -125,6 +125,11 @@ public class GameManager implements CommandExecutor {
 	public void stopGame() {
 		
 		enigmMain.isGameStarted = 0;
+		enigmMain.redStateChallenge = 0;
+		enigmMain.greenStateChallenge = 0;
+		enigmMain.yellowStateChallenge = 0;
+		enigmMain.blueStateChallenge = 0;
+		
 		gameTimeCounter = 0;
 		currentSbHandler.updateScoreboard4All();
 		
