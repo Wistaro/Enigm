@@ -17,17 +17,6 @@ import fr.modofuzeiii.enigm.TitleAPI;
 
 public class GameCode implements CommandExecutor {
 	
-	/*
-	 * Récupérer la team du joueur: enigmMain.nmapPlayersTeam.get(p.getUniqueId())
-	 * 
-	 * Récupérer le nombre de points de la team du joueur : enigmMain.sbHandler.getInternalTeamPoints(String team)
-	 * 
-	 * Modifier le nombre de points de la team du joueur : enigmMain.sbHandler.setInternalTeamPoints(String team)
-	 * 
-	 * Récupérer l'état du challenge en cours (aucune épreuve validée = 0): this.getStateChallengeTeam(String team)
-	 * 
-	 * Augmenter de 1 le compteur de challenge de l'équipe : this.increaseChallengeTeam(String team)
-	 */
 	
 	private EnigmMain enigmMain;
 	
@@ -108,7 +97,7 @@ public class GameCode implements CommandExecutor {
 		int actualTeamPoints = enigmMain.sbHandler.getInternalTeamPoints(team);
 		
 		int initCapitalPoints = FIRST_PLACE;
-		// 16 14 12 10
+		
 		int rouge = this.enigmMain.redStateChallenge;
 		int bleu = this.enigmMain.blueStateChallenge;
 		int vert = this.enigmMain.greenStateChallenge;
@@ -222,6 +211,31 @@ public class GameCode implements CommandExecutor {
 		return false;
 	}
 	
+	private void sendTitleWhenTeamWin(String team, Player p) {
+		
+		String msg = "";
+		
+		switch(team) {
+		  case "rouge":
+			  TitleAPI.sendTitle(p, 10, 20, 10, "§l§cL'équipe "+team, "s'est échappée de Enigm!");
+			break;
+		  
+		  case "bleu":
+			  TitleAPI.sendTitle(p, 10, 20, 10, "§l§1L'équipe "+team, "s'est échappée de Enigm!");
+			break;
+		  case "vert":
+			  TitleAPI.sendTitle(p, 10, 20, 10, "§l§aL'équipe "+team, "s'est échappée de Enigm!");
+			break;
+		  case "jaune":
+			  TitleAPI.sendTitle(p, 10, 20, 10, "§l§eL'équipe "+team, "s'est échappée de Enigm!");
+			break;
+			
+		  default:
+			  
+		    break;
+   	}
+	}
+	
 	private void finish(Player p) {
 		
 		String team = enigmMain.mapPlayersTeam.get(p.getUniqueId());
@@ -235,13 +249,15 @@ public class GameCode implements CommandExecutor {
 		
 		for(Player p_online : Bukkit.getOnlinePlayers()) {
 			
-			 TitleAPI.sendTitle(p_online, 10, 20, 10, "§aL'équipe §r"+team, "§c§ls'est échappée de Enigm!");
+			sendTitleWhenTeamWin(team, p);
 			 p_online.playSound(p_online.getLocation(), Sound.ENTITY_WITHER_DEATH, 1F, 0.7F);
 		} 
 		
 		Bukkit.broadcastMessage("COUNT : "+scoreComplet);
 		
 		if(scoreComplet == (4 * FINAL_CHALLENGE ) ) {
+			
+			Location Podium = new Location(p.getWorld(),26.5,234,3.5);
 			
 			try {
 				Thread.sleep(2 * 1000);
@@ -251,10 +267,10 @@ public class GameCode implements CommandExecutor {
 			}
 			
 			for(Player p_online : Bukkit.getOnlinePlayers()) {
-				Location Podium = new Location(p.getWorld(),26.5,234,3.5);
+				
 				TitleAPI.sendTitle(p_online, 10, 20, 10, "§cToutes les équipes", "§a§lse sont échappées!");
 				p_online.teleport(Podium);
-				/*INSERT FINAL SOUND HERE !!!!*/
+				p_online.playSound(p_online.getLocation(), "enigm.mario", 1F, 1F);
 			} 
 		}
 	}

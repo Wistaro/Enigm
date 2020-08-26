@@ -30,6 +30,11 @@ public class PlaySong implements CommandExecutor {
 				}else if(args[0].equalsIgnoreCase("intro")) {
 					playSong4All("enigm.intro");
 					p.sendMessage("Tu as envoyé le son intro!");
+					
+				}else if(args[0].equalsIgnoreCase("mario")) {
+					playSong4All("enigm.mario");
+					p.sendMessage("Tu as envoyé le son intro!");	
+					
 				}else {
 					return false;
 				}
